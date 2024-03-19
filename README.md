@@ -8,7 +8,7 @@ The Room Booking System is a web-based platform designed to facilitate the easy 
 
 Team Members -
 Huzaifa Malik - Huzaifa.ma@northeastern.edu
-jishnu jemunigani - jemunigani.j@northeastern.edu
+Jishnu Jemunigani - jemunigani.j@northeastern.edu
 Keerthi Nethiguntla - nethiguntla.k@northeastern.edu
 Juttu Gajendra Anurag - gajendraanurag.j@northeastern.edu
 
