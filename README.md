@@ -10,6 +10,6 @@ Team Members -
 Huzaifa Malik - Huzaifa.ma@northeastern.edu
 jishnu jemunigani - jemunigani.j@northeastern.edu
 Keerthi Nethiguntla - nethiguntla.k@northeastern.edu
-Juttu Anurag - gajendraanurag.j@northeastern.edu
+Juttu Gajendra Anurag - gajendraanurag.j@northeastern.edu
 
 
