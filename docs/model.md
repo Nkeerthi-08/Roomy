@@ -1,3 +1,8 @@
+# Object Model
+
+## Model for the application
+
+```mermaid
 erDiagram
     User {
         string Name
@@ -55,5 +60,9 @@ erDiagram
     User }|--o{ Payment : "Makes"
     User }|--o{ Report : "Submits"
     Admin }|--o{ Report : "Handles"
-    <!-- User ||--{ ContactedPosting : "Contacts" -->
-    <!-- Posting ||--{ ContactedPosting : "Contacted By" -->
+    User }|--o{ ContactedPosting : "Contacts"
+    Posting }|--o{ ContactedPosting : "Contacted By"
+
+
+
+```
