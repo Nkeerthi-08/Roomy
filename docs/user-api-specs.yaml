@@ -83,14 +83,31 @@ paths:
               properties:
                 email:
                   type: string
-                  format: email
                 password:
                   type: string
       responses:
         '200':
           description: User logged in successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "eyJhbGciOi"
         '401':
           description: Unauthorized
+          # return { error: 'Unauthorized'}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+            
 
   /users/logout:
     post:
@@ -98,8 +115,24 @@ paths:
       responses:
         '200':
           description: User logged out successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User logged out successfully"
         '401':
           description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Unauthorized"
 
   /users/change-password:
     post:
@@ -118,10 +151,34 @@ paths:
       responses:
         '200':
           description: Password changed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Password changed successfully"
         '400':
           description: Bad request, invalid parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid parameters"
         '401':
           description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Unauthorized"
 
 components:
   schemas:
@@ -137,12 +194,6 @@ components:
         email:
           type: string
           format: email
-        address:
-          type: string
-        previousPostings:
-          type: string
-        previouslyContacted:
-          type: string
         hashedPassword:
           type: string
           format: password
