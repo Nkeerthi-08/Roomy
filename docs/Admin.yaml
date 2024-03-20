@@ -1,0 +1,115 @@
+openapi: "3.1.0"
+info:
+  title: "Admin API"
+  description: "API for managing room bookings, including admin operations"
+  version: 1.0.0
+servers:
+  - url: http://localhost:3001
+
+paths:
+
+  /admins:
+    post:
+      summary: "Create a new admin"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Admin'
+      responses:
+        '201':
+          description: "Admin created"
+        '400':
+          description: "Invalid input"
+
+    get:
+      summary: "Get a list of all admins"
+      responses:
+        '200':
+          description: "An array of admins"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Admin'
+
+  /admins/{adminId}:
+    get:
+      summary: "Get a single admin by ID"
+      parameters:
+        - name: adminId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Details of the admin"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Admin'
+        '404':
+          description: "Admin not found"
+
+    put:
+      summary: "Update an existing admin"
+      parameters:
+        - name: adminId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Admin'
+      responses:
+        '200':
+          description: "Admin updated"
+        '404':
+          description: "Admin not found"
+        '400':
+          description: "Invalid input"
+
+    delete:
+      summary: "Delete an admin"
+      parameters:
+        - name: adminId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: "Admin deleted"
+        '404':
+          description: "Admin not found"
+
+components:
+  schemas:
+    Admin:
+      type: object
+      required:
+        - name
+        - email
+        - hashedPassword
+        - salt
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: "Unique identifier for the admin"
+        name:
+          type: string
+        email:
+          type: string
+        hashedPassword:
+          type: string
+        salt:
+          type: string
+
