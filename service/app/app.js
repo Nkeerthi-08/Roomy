@@ -15,7 +15,7 @@ const init = (app) => {
     useUnifiedTopology: true,
   });
 
-  console.log("Connected to MongoDB", MONGO_URI);
+  console.log("Connected to MongoDB");
 
   ininializeRoutes(app);
 };
