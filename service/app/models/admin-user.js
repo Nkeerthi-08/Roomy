@@ -1,0 +1,20 @@
+import mongoose from "mongoose";
+import { Schema } from "mongoose";
+
+const AdminUserSchema = new Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    index: true,
+    validate: {
+      validator: (v) => /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v),
+    },
+  },
+  name: { type: String, required: true },
+  password: { type: String, required: true },
+});
+
+const AdminUser = mongoose.model("AdminUser", AdminUserSchema);
+
+export default AdminUser;
