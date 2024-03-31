@@ -2,6 +2,7 @@
 
 import passportJWT from "passport-jwt";
 import * as AdminUserService from "../services/admin-user-service.js";
+import * as UserService from "../services/user-service.js";
 
 function initPassport(passport) {
   const JWTStrategy = passportJWT.Strategy;
@@ -21,6 +22,22 @@ function initPassport(passport) {
         );
         if (adminUser) {
           return done(null, adminUser);
+        } else {
+          return done(null, false, { message: "Admin User not found" });
+        }
+      } catch (error) {
+        return done(error);
+      }
+    })
+  );
+
+  passport.use(
+    "user-jwt",
+    new JWTStrategy(jwtOptions, async (jwtPayload, done) => {
+      try {
+        const user = await UserService.getUserById(jwtPayload.id);
+        if (user) {
+          return done(null, user);
         } else {
           return done(null, false, { message: "User not found" });
         }
