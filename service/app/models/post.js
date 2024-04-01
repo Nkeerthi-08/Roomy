@@ -1,0 +1,38 @@
+import mongoose from "mongoose";
+import { Schema } from "mongoose";
+
+// Define the photo schema
+const photoSchema = new mongoose.Schema({
+  url: { type: String, required: true },
+  caption: { type: String, required: false },
+  public_id: { type: String, required: true },
+});
+
+const PostSchema = new Schema({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  streetAddress: { type: String, required: false },
+  unitNo: { type: String, required: false },
+  city: { type: String, required: false },
+  stateCode: { type: String, required: false },
+  zipCode: { type: String, required: false },
+  phoneNumber: { type: String, required: false },
+  startDateRange: { type: Date, required: false },
+  endDateRange: { type: Date, required: false },
+  price: { type: Number, required: false },
+  photos: { type: [String], required: false },
+  nearbyPlaces: { type: String, required: false },
+  homeType: { type: String, required: false },
+  utilities: { type: [String], required: false },
+  amenities: { type: [String], required: false },
+  foodPreference: { type: String, required: false },
+  user: { type: Schema.Types.ObjectId, ref: "User" },
+  approved: { type: Boolean, required: false, default: false },
+  approvedBy: { type: Schema.Types.ObjectId, ref: "Admin", required: false },
+  approvedAt: { type: Date, required: false },
+  photos: [photoSchema],
+});
+
+const Post = mongoose.model("Post", PostSchema);
+
+export default Post;
