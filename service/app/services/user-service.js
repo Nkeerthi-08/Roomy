@@ -35,7 +35,7 @@ export const login = async (user) => {
     { id: userFromDb._id, email: userFromDb.email },
     process.env.JWT_SECRET,
     {
-      expiresIn: "1d",
+      expiresIn: 2592000,
     }
   );
 
