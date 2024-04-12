@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 // Define the photo schema
+
 const photoSchema = new mongoose.Schema({
-  url: { type: String, required: true },
-  caption: { type: String, required: false },
-  public_id: { type: String, required: true },
+  url: { type: String, required: false },
+  id: { type: String, required: false },
 });
 
 const PostSchema = new Schema({
