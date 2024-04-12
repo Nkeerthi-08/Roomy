@@ -1,6 +1,9 @@
 import express from "express";
 import passport from "passport";
 import * as PostController from "../controllers/post-controller.js";
+import multer from "multer";
+
+const upload = multer({});
 
 const PostRouter = express.Router();
 
@@ -28,6 +31,7 @@ PostRouter.post(
   (req, res, next) => {
     passportAuth(req, res, next);
   },
+  upload.array("photos", 10),
   PostController.createPost
 );
 
