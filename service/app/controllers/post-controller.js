@@ -5,6 +5,7 @@ export const createPost = async (req, res) => {
   try {
     const post = req.body;
     post.user = req.user._id;
+    post.photos = req.files;
     const response = await PostService.createPost(post);
     setResponse(res, response);
   } catch (error) {
