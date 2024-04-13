@@ -52,6 +52,7 @@ PostRouter.put(
   (req, res, next) => {
     passportAuth(req, res, next);
   },
+  upload.array("photos", 10),
   PostController.updatePost
 );
 
