@@ -15,10 +15,7 @@ const init = (app) => {
   app.use(express.urlencoded({ extended: true }));
   app.use(passport.initialize());
 
-  mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  mongoose.connect(MONGO_URI, {});
 
   console.log("Connected to MongoDB");
 
