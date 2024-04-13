@@ -1,30 +1,11 @@
 import express from "express";
-import passport from "passport";
 import * as PostController from "../controllers/post-controller.js";
 import multer from "multer";
+import { passportAuth, passportAdminUserAuth } from "../utils/passportAuth.js";
 
 const upload = multer({});
 
 const PostRouter = express.Router();
-
-const passportAuth = (req, res, next) => {
-  passport.authenticate(
-    "user-jwt",
-    (err, user, info) => {
-      if (err) {
-        return res.status(500).json({ message: err.message });
-      }
-
-      if (!user) {
-        return res.status(401).json({ message: info.message }); // Send back Passport.js error message
-      }
-      // Authentication successful, proceed with the route handler
-      req.user = user;
-      next();
-    },
-    { session: false }
-  )(req, res, next);
-};
 
 PostRouter.post(
   "/create",
@@ -62,6 +43,14 @@ PostRouter.delete(
     passportAuth(req, res, next);
   },
   PostController.deletePost
+);
+
+PostRouter.put(
+  "/:id/approve",
+  (req, res, next) => {
+    passportAdminUserAuth(req, res, next);
+  },
+  PostController.approvePost
 );
 
 export default PostRouter;

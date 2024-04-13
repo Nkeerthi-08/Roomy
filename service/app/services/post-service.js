@@ -86,7 +86,7 @@ export const deletePost = async (id) => {
  */
 export const approvePost = async (id, approvedBy) => {
   // only admin can approve posts
-  if (approvedBy.role !== "admin") {
+  if (approvedBy.collection.modelName !== "AdminUser") {
     throw new Error("Only admin can approve posts");
   }
 
@@ -100,4 +100,14 @@ export const approvePost = async (id, approvedBy) => {
   }
 
   return { message: "Post approved", success: true };
+};
+
+export const deactivatePost = async (id) => {
+  const res = await Post.updateOne({ _id: id }, { active: false });
+
+  if (!res || res.nModified === 0) {
+    throw new Error("Post not deactivated");
+  }
+
+  return { message: "Post deactivated", success: true };
 };

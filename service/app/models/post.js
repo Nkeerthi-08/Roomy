@@ -11,6 +11,7 @@ const photoSchema = new mongoose.Schema({
 const PostSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
+  active: { type: Boolean, required: true, default: true },
   streetAddress: { type: String, required: false },
   unitNo: { type: String, required: false },
   city: { type: String, required: false },
