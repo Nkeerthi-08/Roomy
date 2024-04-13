@@ -31,6 +31,7 @@ const PostSchema = new Schema({
   approvedBy: { type: Schema.Types.ObjectId, ref: "Admin", required: false },
   approvedAt: { type: Date, required: false },
   photos: [photoSchema],
+  createdAt: { type: Date, required: true, default: Date.now },
 });
 
 const Post = mongoose.model("Post", PostSchema);

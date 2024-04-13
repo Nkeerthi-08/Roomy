@@ -18,6 +18,7 @@ const UserSchema = new Schema({
   state: { type: String, required: false },
   zip: { type: String, required: false },
   phone: { type: String, required: false },
+  createdAt: { type: Date, required: true, default: Date.now },
 });
 
 const User = mongoose.model("User", UserSchema);
