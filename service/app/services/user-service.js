@@ -23,21 +23,14 @@ export const login = async (user) => {
   }
 
   console.log(userFromDb);
-  const isPasswordValid = await bcrypt.compare(
-    user.password,
-    userFromDb.password
-  );
+  const isPasswordValid = await bcrypt.compare(user.password, userFromDb.password);
   if (!isPasswordValid) {
     throw new Error("Invalid password");
   }
 
-  const token = jwt.sign(
-    { id: userFromDb._id, email: userFromDb.email },
-    process.env.JWT_SECRET,
-    {
-      expiresIn: 2592000,
-    }
-  );
+  const token = jwt.sign({ id: userFromDb._id, email: userFromDb.email }, process.env.JWT_SECRET, {
+    expiresIn: 2592000,
+  });
 
   return { success: true, message: "User logged in", token: "Bearer " + token };
 };
