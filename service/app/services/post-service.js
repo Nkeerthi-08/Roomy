@@ -1,5 +1,5 @@
 import Post from "../models/post.js";
-import { uploadPhotos } from "../utils/azureUtils.js";
+import { sendEmail, uploadPhotos } from "../utils/azureUtils.js";
 
 /**
  * Creates a new post.
@@ -18,6 +18,7 @@ export const createPost = async (post) => {
     throw new Error("Post not created");
   }
 
+  sendEmail([post.user.email], "New Post", "A new post has been created");
   return { message: "Post created", success: true };
 };
 
