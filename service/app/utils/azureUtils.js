@@ -1,4 +1,5 @@
 import { BlobServiceClient } from "@azure/storage-blob";
+import { EmailClient } from "@azure/communication-email";
 
 /**
  * Uploads photos to Azure Blob Storage.
@@ -30,5 +31,37 @@ export const uploadPhotos = async (id, photos) => {
     return photoUrls;
   } catch (error) {
     throw new Error(`Error uploading photos: ${error.message}`);
+  }
+};
+
+export const sendEmail = async (emails, subject, message) => {
+  try {
+    const connectionString =
+      process.env.AZURE_COMMUNICATION_EMAIL_CONNECTION_STRING;
+    const emailClient = new EmailClient(connectionString);
+    const emailMessage = {
+      senderAddress:
+        "DoNotReply@de7cd528-9236-46da-918d-e00feae21a17.azurecomm.net",
+      content: {
+        subject: subject,
+        plainText: message,
+        html: `<html>
+            <body>
+              <h1>${subject}</h1>
+              <p>${message}</p>
+            </body>
+          </html>`,
+      },
+      recipients: {
+        to: emails.map((email) => ({ address: email })),
+      },
+    };
+
+    const poller = await emailClient.beginSend(emailMessage);
+    const result = await poller.pollUntilDone();
+
+    console.log("Email sent with message id: ", result);
+  } catch (error) {
+    console.error(`Error sending email: ${error.message}`);
   }
 };
