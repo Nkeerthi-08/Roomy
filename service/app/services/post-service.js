@@ -22,8 +22,8 @@ export const createPost = async (post) => {
   return { message: "Post created", success: true };
 };
 
-export const getUserPosts = async (userId, approved = true) => {
-  const res = await Post.find({ user: userId, approved: approved });
+export const getUserPosts = async (userId) => {
+  const res = await Post.find({ user: userId });
 
   if (!res) {
     throw new Error("Posts not found");
@@ -32,14 +32,18 @@ export const getUserPosts = async (userId, approved = true) => {
   return res;
 };
 
-export const getAllPosts = async (approved = false) => {
-  const res = await Post.find({ approved: approved });
+export const getAllPosts = async (approved = null) => {
+  // If approved parameter is null, retrieve all posts
+  const query = approved === null ? {} : { approved };
 
-  if (!res) {
+  // Execute the query
+  const posts = await Post.find(query);
+
+  if (!posts) {
     throw new Error("Posts not found");
   }
 
-  return res;
+  return posts;
 };
 
 export const getPostById = async (id) => {
