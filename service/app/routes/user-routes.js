@@ -23,7 +23,7 @@ const passportAuth = (req, res, next) => {
   )(req, res, next);
 };
 
-UserRouter.get("/login", UserController.login);
+UserRouter.post("/login", UserController.login);
 UserRouter.post("/register", UserController.register);
 UserRouter.put(
   "/update",
