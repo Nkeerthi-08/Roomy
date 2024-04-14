@@ -57,8 +57,8 @@ export const sendEmail = async (emails, subject, message) => {
       },
     };
 
-    // const poller = await emailClient.beginSend(emailMessage);
-    // const result = await poller.pollUntilDone();
+    const poller = await emailClient.beginSend(emailMessage);
+    const result = await poller.pollUntilDone();
 
     console.log("Email sent with message id: ", result);
   } catch (error) {
