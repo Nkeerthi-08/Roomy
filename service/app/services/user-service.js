@@ -2,6 +2,7 @@ import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { sendEmail } from "../utils/azureUtils.js";
+import { renderWelcomeEmail } from "../templates/user-templates.js";
 
 export const register = async (user) => {
   const existingUser = await User.findOne({ email: user.email });
@@ -18,7 +19,12 @@ export const register = async (user) => {
     throw new Error("User not created");
   }
 
-  sendEmail([user.email], "Welcome", "Welcome to Roomy!");
+  sendEmail(
+    [user.email],
+    "Welcome",
+    "Welcome to our platform",
+    renderWelcomeEmail(userFromDb.name)
+  );
   return { message: "User created", success: true };
 };
 

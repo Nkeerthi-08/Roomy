@@ -1,4 +1,5 @@
 import Post from "../models/post.js";
+import { renderPostCreationEmail } from "../templates/post-templates.js";
 import { sendEmail, uploadPhotos } from "../utils/azureUtils.js";
 
 /**
@@ -18,7 +19,12 @@ export const createPost = async (post) => {
     throw new Error("Post not created");
   }
 
-  sendEmail([post.user.email], "New Post", "A new post has been created");
+  sendEmail(
+    [res.user.email],
+    "New Post",
+    "A new post has been created",
+    renderPostCreationEmail(res.user.name, post.title)
+  );
   return { message: "Post created", success: true };
 };
 

@@ -1,6 +1,7 @@
 import Report from "../models/report.js";
 import * as PostService from "./post-service.js";
 import { sendEmail } from "../utils/azureUtils.js";
+import { renderReportCreationEmail } from "../templates/report-templates.js";
 
 export const createReport = async (report) => {
   report.post = await PostService.getPostById(report.postId);
@@ -11,7 +12,12 @@ export const createReport = async (report) => {
     throw new Error("Report not created");
   }
 
-  sendEmail([report.user.email], "New Report", "A new report has been created");
+  sendEmail(
+    [report.user.email],
+    "New Report",
+    "A new report has been created",
+    renderReportCreationEmail(report.user.name, report, report.post)
+  );
   return { message: "Report created", success: true };
 };
 
