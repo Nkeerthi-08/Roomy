@@ -3,6 +3,11 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export const register = async (user) => {
+  const existingUser = await User.findOne({ email: user.email });
+  if (existingUser) {
+    throw new Error("User already exists");
+  }
+
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
 
@@ -16,21 +21,26 @@ export const register = async (user) => {
 };
 
 export const login = async (user) => {
-  console.log(user);
   const userFromDb = await User.findOne({ email: user.email });
   if (!userFromDb) {
     throw new Error("User not found");
   }
 
-  console.log(userFromDb);
-  const isPasswordValid = await bcrypt.compare(user.password, userFromDb.password);
+  const isPasswordValid = await bcrypt.compare(
+    user.password,
+    userFromDb.password
+  );
   if (!isPasswordValid) {
     throw new Error("Invalid password");
   }
 
-  const token = jwt.sign({ id: userFromDb._id, email: userFromDb.email }, process.env.JWT_SECRET, {
-    expiresIn: 2592000,
-  });
+  const token = jwt.sign(
+    { id: userFromDb._id, email: userFromDb.email },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: 2592000,
+    }
+  );
 
   return { success: true, message: "User logged in", token: "Bearer " + token };
 };
