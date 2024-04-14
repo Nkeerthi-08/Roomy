@@ -34,7 +34,7 @@ export const uploadPhotos = async (id, photos) => {
   }
 };
 
-export const sendEmail = async (emails, subject, message) => {
+export const sendEmail = async (emails, subject, message, html = null) => {
   try {
     const connectionString =
       process.env.AZURE_COMMUNICATION_EMAIL_CONNECTION_STRING;
@@ -45,12 +45,7 @@ export const sendEmail = async (emails, subject, message) => {
       content: {
         subject: subject,
         plainText: message,
-        html: `<html>
-            <body>
-              <h1>${subject}</h1>
-              <p>${message}</p>
-            </body>
-          </html>`,
+        html: html,
       },
       recipients: {
         to: emails.map((email) => ({ address: email })),

@@ -11,6 +11,7 @@ const photoSchema = new mongoose.Schema({
 const PostSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
+  active: { type: Boolean, required: true, default: true },
   streetAddress: { type: String, required: false },
   unitNo: { type: String, required: false },
   city: { type: String, required: false },
@@ -31,6 +32,7 @@ const PostSchema = new Schema({
   approvedBy: { type: Schema.Types.ObjectId, ref: "Admin", required: false },
   approvedAt: { type: Date, required: false },
   photos: [photoSchema],
+  createdAt: { type: Date, required: true, default: Date.now },
 });
 
 const Post = mongoose.model("Post", PostSchema);

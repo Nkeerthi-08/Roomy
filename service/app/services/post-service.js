@@ -1,4 +1,5 @@
 import Post from "../models/post.js";
+import { renderPostCreationEmail } from "../templates/post-templates.js";
 import { sendEmail, uploadPhotos } from "../utils/azureUtils.js";
 
 /**
@@ -18,12 +19,17 @@ export const createPost = async (post) => {
     throw new Error("Post not created");
   }
 
-  sendEmail([post.user.email], "New Post", "A new post has been created");
+  sendEmail(
+    [res.user.email],
+    "New Post",
+    "A new post has been created",
+    renderPostCreationEmail(res.user.name, post.title)
+  );
   return { message: "Post created", success: true };
 };
 
-export const getUserPosts = async (userId, approved = true) => {
-  const res = await Post.find({ user: userId, approved: approved });
+export const getUserPosts = async (userId) => {
+  const res = await Post.find({ user: userId });
 
   if (!res) {
     throw new Error("Posts not found");
@@ -32,13 +38,18 @@ export const getUserPosts = async (userId, approved = true) => {
   return res;
 };
 
-export const getAllPosts = async (approved = true) => {
-  const res = await Post.find({ approved: approved });
-  if (!res) {
+export const getAllPosts = async (approved = null) => {
+  // If approved parameter is null, retrieve all posts
+  const query = approved === null ? {} : { approved };
+
+  // Execute the query
+  const posts = await Post.find(query);
+
+  if (!posts) {
     throw new Error("Posts not found");
   }
 
-  return res;
+  return posts;
 };
 
 export const getPostById = async (id) => {
@@ -81,7 +92,7 @@ export const deletePost = async (id) => {
  */
 export const approvePost = async (id, approvedBy) => {
   // only admin can approve posts
-  if (approvedBy.role !== "admin") {
+  if (approvedBy.collection.modelName !== "AdminUser") {
     throw new Error("Only admin can approve posts");
   }
 
@@ -95,4 +106,14 @@ export const approvePost = async (id, approvedBy) => {
   }
 
   return { message: "Post approved", success: true };
+};
+
+export const deactivatePost = async (id) => {
+  const res = await Post.updateOne({ _id: id }, { active: false });
+
+  if (!res || res.nModified === 0) {
+    throw new Error("Post not deactivated");
+  }
+
+  return { message: "Post deactivated", success: true };
 };

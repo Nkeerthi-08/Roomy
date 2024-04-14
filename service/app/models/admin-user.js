@@ -13,6 +13,7 @@ const AdminUserSchema = new Schema({
   },
   name: { type: String, required: true },
   password: { type: String, required: true },
+  createdAt: { type: Date, required: true, default: Date.now },
 });
 
 const AdminUser = mongoose.model("AdminUser", AdminUserSchema);

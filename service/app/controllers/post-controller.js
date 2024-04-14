@@ -1,4 +1,5 @@
 import { setResponse, setResponseWithError } from "./response-handler.js";
+import { passportAuth, passportAdminUserAuth } from "../utils/passportAuth.js";
 import * as PostService from "../services/post-service.js";
 
 export const createPost = async (req, res) => {
@@ -62,6 +63,17 @@ export const deletePost = async (req, res) => {
   try {
     const id = req.params.id;
     const response = await PostService.deletePost(id);
+    setResponse(res, response);
+  } catch (error) {
+    setResponseWithError(res, error);
+  }
+};
+
+export const approvePost = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const adminUser = req.adminUser;
+    const response = await PostService.approvePost(id, adminUser);
     setResponse(res, response);
   } catch (error) {
     setResponseWithError(res, error);
