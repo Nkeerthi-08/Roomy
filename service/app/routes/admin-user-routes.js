@@ -21,5 +21,5 @@ AdminUserRouter.delete(
   },
   AdminUserController.deleteUser
 );
-
+//console login 
 export default AdminUserRouter;
