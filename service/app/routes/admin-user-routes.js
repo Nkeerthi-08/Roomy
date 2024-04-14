@@ -22,9 +22,8 @@ AdminUserRouter.delete(
   AdminUserController.deleteUser
 );
 
-//console login 
+//console login juttu
 
-
-
+//console login juttu new 
 
 export default AdminUserRouter;
