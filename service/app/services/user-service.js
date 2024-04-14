@@ -74,6 +74,7 @@ export const deleteUser = async (user) => {
 };
 
 export const getUserById = async (id) => {
+  console.log(id, "user id");
   const res = await User.findById(id);
 
   if (!res) {
