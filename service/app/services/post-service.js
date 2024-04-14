@@ -32,9 +32,8 @@ export const getUserPosts = async (userId, approved = true) => {
   return res;
 };
 
-export const getAllPosts = async (approved = false) => {
+export const getAllPosts = async (approved = true) => {
   const res = await Post.find({ approved: approved });
-
   if (!res) {
     throw new Error("Posts not found");
   }

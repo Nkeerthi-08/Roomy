@@ -40,4 +40,12 @@ UserRouter.delete(
   UserController.deleteUser
 );
 
+UserRouter.get(
+  "/context",
+  (req, res, next) => {
+    passportAuth(req, res, next);
+  },
+  UserController.getUserContext
+);
+
 export default UserRouter;

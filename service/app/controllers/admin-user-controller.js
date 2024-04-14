@@ -49,7 +49,6 @@ export const update = async (req, res) => {
 export const deleteUser = async (req, res) => {
   try {
     const adminUser = req.adminUser;
-
     const response = await AdminUserService.deleteAdminUser(adminUser);
     setResponse(res, response);
   } catch (error) {

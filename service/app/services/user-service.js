@@ -16,7 +16,6 @@ export const register = async (user) => {
 };
 
 export const login = async (user) => {
-  console.log(user);
   const userFromDb = await User.findOne({ email: user.email });
   if (!userFromDb) {
     throw new Error("User not found");
@@ -56,6 +55,7 @@ export const deleteUser = async (user) => {
 };
 
 export const getUserById = async (id) => {
+  console.log(id, "user id");
   const res = await User.findById(id);
 
   if (!res) {
