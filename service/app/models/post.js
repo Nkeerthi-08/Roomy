@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { Schema } from "mongoose";
+import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 
 // Define the photo schema
 
@@ -27,14 +27,14 @@ const PostSchema = new Schema({
   utilities: { type: [String], required: false },
   amenities: { type: [String], required: false },
   foodPreference: { type: String, required: false },
-  user: { type: Schema.Types.ObjectId, ref: "User" },
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
   approved: { type: Boolean, required: false, default: false },
-  approvedBy: { type: Schema.Types.ObjectId, ref: "Admin", required: false },
+  approvedBy: { type: Schema.Types.ObjectId, ref: 'Admin', required: false },
   approvedAt: { type: Date, required: false },
   photos: [photoSchema],
   createdAt: { type: Date, required: true, default: Date.now },
 });
 
-const Post = mongoose.model("Post", PostSchema);
+const Post = mongoose.model('Post', PostSchema);
 
 export default Post;

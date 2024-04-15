@@ -1,20 +1,20 @@
-import express from "express";
-import { passportAuth } from "../utils/passportAuth.js";
-import * as UserController from "../controllers/user-controller.js";
+import express from 'express';
+import { passportAuth } from '../utils/passportAuth.js';
+import * as UserController from '../controllers/user-controller.js';
 
 const UserRouter = express.Router();
 
-UserRouter.post("/login", UserController.login);
-UserRouter.post("/register", UserController.register);
+UserRouter.post('/login', UserController.login);
+UserRouter.post('/register', UserController.register);
 UserRouter.put(
-  "/update",
+  '/update',
   (req, res, next) => {
     passportAuth(req, res, next);
   },
   UserController.update
 );
 UserRouter.delete(
-  "/delete",
+  '/delete',
   (req, res, next) => {
     passportAuth(req, res, next);
   },
@@ -22,7 +22,7 @@ UserRouter.delete(
 );
 
 UserRouter.get(
-  "/context",
+  '/context',
   (req, res, next) => {
     passportAuth(req, res, next);
   },

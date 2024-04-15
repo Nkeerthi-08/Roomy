@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { Schema } from "mongoose";
+import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 
 const UserSchema = new Schema({
   email: {
@@ -21,6 +21,6 @@ const UserSchema = new Schema({
   createdAt: { type: Date, required: true, default: Date.now },
 });
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model('User', UserSchema);
 
 export default User;

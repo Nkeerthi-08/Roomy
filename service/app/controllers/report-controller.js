@@ -1,5 +1,5 @@
-import { setResponse, setResponseWithError } from "./response-handler.js";
-import * as ReportService from "../services/report-service.js";
+import { setResponse, setResponseWithError } from './response-handler.js';
+import * as ReportService from '../services/report-service.js';
 
 export const createReport = async (req, res) => {
   try {

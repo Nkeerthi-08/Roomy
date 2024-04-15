@@ -1,5 +1,5 @@
-import { setResponse, setResponseWithError } from "./response-handler.js";
-import * as AdminUserService from "../services/admin-user-service.js";
+import { setResponse, setResponseWithError } from './response-handler.js';
+import * as AdminUserService from '../services/admin-user-service.js';
 
 export const register = async (req, res) => {
   try {

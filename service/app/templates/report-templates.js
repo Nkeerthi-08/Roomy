@@ -16,10 +16,8 @@ const reportCreationEmail = (name, report, post) => `<html>
     <h2>Post Photos</h2>
     <ul>
         ${post.photos
-          .map(
-            (photo) => `<li><img src="${photo.url}" alt="Post photo" /></li>`
-          )
-          .join("")}
+          .map((photo) => `<li><img src="${photo.url}" alt="Post photo" /></li>`)
+          .join('')}
     </ul>
   <br>
   <p>Feel free to reach out to us if you have any questions or need assistance.</p>
