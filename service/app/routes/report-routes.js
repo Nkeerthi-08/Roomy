@@ -12,12 +12,14 @@ ReportRouter.post(
   ReportController.createReport
 );
 
+ReportRouter.get('/user-reports', ReportController.getUserReports);
+
 ReportRouter.get(
-  '/user-reports',
+  '/post-reports/:id',
   (req, res, next) => {
-    passportAuth(req, res, next);
+    passportAdminUserAuth(req, res, next);
   },
-  ReportController.getUserReports
+  ReportController.getPostReports
 );
 
 ReportRouter.get('/all-reports', ReportController.getAllReports);

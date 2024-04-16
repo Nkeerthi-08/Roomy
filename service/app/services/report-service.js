@@ -6,6 +6,13 @@ import { renderReportCreationEmail } from '../templates/report-templates.js';
 export const createReport = async (report) => {
   report.post = await PostService.getPostById(report.postId);
 
+  // check if the user has already reported the post
+  const existingReport = await Report.findOne({ user: report.user, post: report.post });
+
+  if (existingReport) {
+    throw new Error(`Report already exists for this post by ${report.user.email}`);
+  }
+
   const res = await Report.create(report);
 
   if (!res) {
@@ -23,6 +30,16 @@ export const createReport = async (report) => {
 
 export const getUserReports = async (userId) => {
   const res = await Report.find({ user: userId });
+
+  if (!res) {
+    throw new Error('Reports not found');
+  }
+
+  return res;
+};
+
+export const getPostReports = async (postId) => {
+  const res = await Report.find({ post: postId });
 
   if (!res) {
     throw new Error('Reports not found');
@@ -63,7 +80,8 @@ export const deleteReport = async (id) => {
 };
 
 export const handleReport = async (id, handledBy, status) => {
-  if (handledBy.role !== 'admin') {
+  // only admin can handle reports
+  if (handledBy.collection.modelName !== 'AdminUser') {
     throw new Error('Only admin can handle reports');
   }
 

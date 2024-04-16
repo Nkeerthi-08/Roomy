@@ -23,6 +23,16 @@ export const getUserReports = async (req, res) => {
   }
 };
 
+export const getPostReports = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const response = await ReportService.getPostReports(postId);
+    setResponse(res, response);
+  } catch (error) {
+    setResponseWithError(res, error);
+  }
+};
+
 export const getAllReports = async (req, res) => {
   try {
     const response = await ReportService.getAllReports();
