@@ -10,13 +10,13 @@ export default function HomePage() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            My App
+            Roomy
           </Typography>
           <UserData></UserData>
           <LogoutButton></LogoutButton>
         </Toolbar>
       </AppBar>
-      <h1>Home Page</h1>
+      <h1>Location Search</h1>
       <AddressSearch></AddressSearch>
     </div>
   );

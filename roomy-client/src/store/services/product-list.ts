@@ -13,10 +13,6 @@ export const productListApi = apiSlice.injectEndpoints({
       query: () => ({
         url: "/posts/all-posts",
       }),
-      providesTags: (result) =>
-        result
-          ? [...result.map(({ _id }) => ({ type: "Product" as const, _id })), { type: "Product", _id: "LIST" }]
-          : [{ type: "Product", _id: "LIST" }],
     }),
   }),
 });
