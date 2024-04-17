@@ -14,8 +14,8 @@ export default function PropertiesList() {
     refetchOnMountOrArgChange: true,
   });
 
-  if (productLoading) return <div>Loading...</div>;
-  // if (productFetching) return <div>Fetching...</div>;
+  // if (productLoading) return <div>Loading...</div>;
+  if (productFetching) return <div>Loading...</div>;
   if (productError) return <div>Error</div>;
 
   return (
