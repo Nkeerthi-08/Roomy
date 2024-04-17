@@ -6,7 +6,7 @@ export const setResponseWithError = (response, error) => {
   return response.status(500).json({
     error: {
       message: error.message,
-      code: "INTERNAL_SERVER_ERROR",
+      code: 'INTERNAL_SERVER_ERROR',
     },
   });
 };

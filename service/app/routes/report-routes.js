@@ -1,31 +1,33 @@
-import express from "express";
-import { passportAuth, passportAdminUserAuth } from "../utils/passportAuth.js";
-import * as ReportController from "../controllers/report-controller.js";
+import express from 'express';
+import { passportAuth, passportAdminUserAuth } from '../utils/passportAuth.js';
+import * as ReportController from '../controllers/report-controller.js';
 
 const ReportRouter = express.Router();
 
 ReportRouter.post(
-  "/create",
+  '/create',
   (req, res, next) => {
     passportAuth(req, res, next);
   },
   ReportController.createReport
 );
 
+ReportRouter.get('/user-reports', ReportController.getUserReports);
+
 ReportRouter.get(
-  "/user-reports",
+  '/post-reports/:id',
   (req, res, next) => {
-    passportAuth(req, res, next);
+    passportAdminUserAuth(req, res, next);
   },
-  ReportController.getUserReports
+  ReportController.getPostReports
 );
 
-ReportRouter.get("/all-reports", ReportController.getAllReports);
+ReportRouter.get('/all-reports', ReportController.getAllReports);
 
-ReportRouter.get("/:id", ReportController.getReportById);
+ReportRouter.get('/:id', ReportController.getReportById);
 
 ReportRouter.put(
-  "/:id",
+  '/:id',
   (req, res, next) => {
     passportAdminUserAuth(req, res, next);
   },

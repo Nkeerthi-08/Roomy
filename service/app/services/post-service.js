@@ -1,6 +1,6 @@
-import Post from "../models/post.js";
-import { renderPostCreationEmail } from "../templates/post-templates.js";
-import { sendEmail, uploadPhotos } from "../utils/azureUtils.js";
+import Post from '../models/post.js';
+import { renderPostCreationEmail } from '../templates/post-templates.js';
+import { sendEmail, uploadPhotos } from '../utils/azureUtils.js';
 
 /**
  * Creates a new post.
@@ -16,23 +16,23 @@ export const createPost = async (post) => {
   await res.save();
 
   if (!res) {
-    throw new Error("Post not created");
+    throw new Error('Post not created');
   }
 
   sendEmail(
     [res.user.email],
-    "New Post",
-    "A new post has been created",
+    'New Post',
+    'A new post has been created',
     renderPostCreationEmail(res.user.name, post.title)
   );
-  return { message: "Post created", success: true };
+  return { message: 'Post created', success: true };
 };
 
 export const getUserPosts = async (userId) => {
   const res = await Post.find({ user: userId });
 
   if (!res) {
-    throw new Error("Posts not found");
+    throw new Error('Posts not found');
   }
 
   return res;
@@ -46,7 +46,7 @@ export const getAllPosts = async (approved = null) => {
   const posts = await Post.find(query);
 
   if (!posts) {
-    throw new Error("Posts not found");
+    throw new Error('Posts not found');
   }
 
   return posts;
@@ -56,7 +56,7 @@ export const getPostById = async (id) => {
   const res = await Post.findById(id);
 
   if (!res) {
-    throw new Error("Post not found");
+    throw new Error('Post not found');
   }
 
   return res;
@@ -66,20 +66,20 @@ export const updatePost = async (id, updatedFields) => {
   const res = await Post.updateOne({ _id: id }, updatedFields);
 
   if (!res) {
-    throw new Error("Post not updated");
+    throw new Error('Post not updated');
   }
 
-  return { message: "Post updated", success: true };
+  return { message: 'Post updated', success: true };
 };
 
 export const deletePost = async (id) => {
   const res = await Post.deleteOne({ _id: id });
 
   if (!res) {
-    throw new Error("Post not deleted");
+    throw new Error('Post not deleted');
   }
 
-  return { message: "Post deleted", success: true };
+  return { message: 'Post deleted', success: true };
 };
 
 /**
@@ -92,8 +92,8 @@ export const deletePost = async (id) => {
  */
 export const approvePost = async (id, approvedBy) => {
   // only admin can approve posts
-  if (approvedBy.collection.modelName !== "AdminUser") {
-    throw new Error("Only admin can approve posts");
+  if (approvedBy.collection.modelName !== 'AdminUser') {
+    throw new Error('Only admin can approve posts');
   }
 
   const res = await Post.updateOne(
@@ -102,18 +102,18 @@ export const approvePost = async (id, approvedBy) => {
   );
 
   if (!res || res.nModified === 0) {
-    throw new Error("Post not approved");
+    throw new Error('Post not approved');
   }
 
-  return { message: "Post approved", success: true };
+  return { message: 'Post approved', success: true };
 };
 
 export const deactivatePost = async (id) => {
   const res = await Post.updateOne({ _id: id }, { active: false });
 
   if (!res || res.nModified === 0) {
-    throw new Error("Post not deactivated");
+    throw new Error('Post not deactivated');
   }
 
-  return { message: "Post deactivated", success: true };
+  return { message: 'Post deactivated', success: true };
 };

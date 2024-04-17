@@ -1,5 +1,5 @@
-import { setResponse, setResponseWithError } from "./response-handler.js";
-import * as ReportService from "../services/report-service.js";
+import { setResponse, setResponseWithError } from './response-handler.js';
+import * as ReportService from '../services/report-service.js';
 
 export const createReport = async (req, res) => {
   try {
@@ -17,6 +17,16 @@ export const getUserReports = async (req, res) => {
   try {
     const userId = req.user._id;
     const response = await ReportService.getUserReports(userId);
+    setResponse(res, response);
+  } catch (error) {
+    setResponseWithError(res, error);
+  }
+};
+
+export const getPostReports = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const response = await ReportService.getPostReports(postId);
     setResponse(res, response);
   } catch (error) {
     setResponseWithError(res, error);

@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { Schema } from "mongoose";
+import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 
 const AdminUserSchema = new Schema({
   email: {
@@ -16,6 +16,6 @@ const AdminUserSchema = new Schema({
   createdAt: { type: Date, required: true, default: Date.now },
 });
 
-const AdminUser = mongoose.model("AdminUser", AdminUserSchema);
+const AdminUser = mongoose.model('AdminUser', AdminUserSchema);
 
 export default AdminUser;

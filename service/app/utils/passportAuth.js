@@ -1,8 +1,8 @@
-import passport from "passport";
+import passport from 'passport';
 
 export const passportAuth = (req, res, next) => {
   passport.authenticate(
-    "user-jwt",
+    'user-jwt',
     (err, user, info) => {
       if (err) {
         return res.status(500).json({ message: err.message });
@@ -21,10 +21,10 @@ export const passportAuth = (req, res, next) => {
 
 export const passportAdminUserAuth = (req, res, next) => {
   passport.authenticate(
-    "admin-jwt",
+    'admin-jwt',
     (err, user, info) => {
       if (err) {
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({ message: 'Internal server error' });
       }
 
       if (!user) {

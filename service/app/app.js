@@ -1,9 +1,9 @@
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
-import ininializeRoutes from "./routes/index.js";
-import passport from "passport";
-import { initPassport } from "./middlewares/passport-config.js";
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import ininializeRoutes from './routes/index.js';
+import passport from 'passport';
+import { initPassport } from './middlewares/passport-config.js';
 
 const init = (app) => {
   const MONGO_URI = process.env.MONGO_CONNECTION_STRING;
@@ -17,7 +17,7 @@ const init = (app) => {
 
   mongoose.connect(MONGO_URI, {});
 
-  console.log("Connected to MongoDB");
+  console.log('Connected to MongoDB');
 
   ininializeRoutes(app);
 };

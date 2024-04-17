@@ -1,5 +1,5 @@
-import { BlobServiceClient } from "@azure/storage-blob";
-import { EmailClient } from "@azure/communication-email";
+import { BlobServiceClient } from '@azure/storage-blob';
+import { EmailClient } from '@azure/communication-email';
 
 /**
  * Uploads photos to Azure Blob Storage.
@@ -12,9 +12,7 @@ import { EmailClient } from "@azure/communication-email";
 export const uploadPhotos = async (id, photos) => {
   try {
     // Establishes a connection with Azure Blob Storage
-    const blobServiceClient = new BlobServiceClient(
-      process.env.BLOB_SERVICE_URL
-    );
+    const blobServiceClient = new BlobServiceClient(process.env.BLOB_SERVICE_URL);
     const containerClient = blobServiceClient.getContainerClient(
       process.env.AZURE_STORAGE_CONTAINER_NAME
     );
@@ -36,12 +34,10 @@ export const uploadPhotos = async (id, photos) => {
 
 export const sendEmail = async (emails, subject, message, html = null) => {
   try {
-    const connectionString =
-      process.env.AZURE_COMMUNICATION_EMAIL_CONNECTION_STRING;
+    const connectionString = process.env.AZURE_COMMUNICATION_EMAIL_CONNECTION_STRING;
     const emailClient = new EmailClient(connectionString);
     const emailMessage = {
-      senderAddress:
-        "DoNotReply@de7cd528-9236-46da-918d-e00feae21a17.azurecomm.net",
+      senderAddress: 'DoNotReply@de7cd528-9236-46da-918d-e00feae21a17.azurecomm.net',
       content: {
         subject: subject,
         plainText: message,
@@ -55,7 +51,7 @@ export const sendEmail = async (emails, subject, message, html = null) => {
     const poller = await emailClient.beginSend(emailMessage);
     const result = await poller.pollUntilDone();
 
-    console.log("Email sent with message id: ", result);
+    console.log('Email sent with message id: ', result);
   } catch (error) {
     console.error(`Error sending email: ${error.message}`);
   }
