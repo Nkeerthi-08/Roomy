@@ -6,6 +6,7 @@ import { LoginReq } from "@/models/login/login";
 import toast, { Toaster } from "react-hot-toast";
 import { redirect } from "next/navigation";
 
+
 export default function LoginComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
