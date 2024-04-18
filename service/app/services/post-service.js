@@ -53,6 +53,8 @@ export const getAllPosts = async (approved = null) => {
 };
 
 export const getPostById = async (id) => {
+  if (!id) throw new Error('Post ID is required');
+
   const res = await Post.findById(id);
 
   if (!res) {
