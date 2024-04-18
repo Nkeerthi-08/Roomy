@@ -9,7 +9,7 @@ const ininializeRoutes = (app) => {
   app.use('/admin-users', AdminUserRouter);
   app.use('/posts', PostRouter);
   app.use('/reports', ReportRouter);
-  app.use('/create-stripe-session-subscription', PaymentSubscriptionRouter);
+  app.use('/payments', PaymentSubscriptionRouter);
 };
 
 export default ininializeRoutes;
