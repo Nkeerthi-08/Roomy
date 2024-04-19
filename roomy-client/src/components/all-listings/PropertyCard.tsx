@@ -1,13 +1,14 @@
 import Link from "next/link";
 
 interface CardProps {
+  key: string;
   title: string;
   description: string;
   price: string;
   imageSrc: string;
 }
 
-export function Card({ title, description, price, imageSrc }: CardProps) {
+export function PropertyCard({ title, description, price, imageSrc }: CardProps) {
   return (
     <>
       <div className="relative group overflow-hidden rounded-lg shadow-lg">

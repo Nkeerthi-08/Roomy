@@ -21,3 +21,11 @@ export const saveState = (key: string, state: any) => {
     console.error(err);
   }
 };
+
+export const removeState = (key: string) => {
+  try {
+    localStorage.removeItem(key);
+  } catch (err) {
+    console.error(err);
+  }
+};

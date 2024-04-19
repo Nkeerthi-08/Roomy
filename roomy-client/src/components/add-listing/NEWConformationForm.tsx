@@ -1,13 +1,11 @@
-import { setStep } from "@/store/slices/addListing-slice";
+import { resetSlice, setStep } from "@/store/slices/addListing-slice";
 import { useAppSelector } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { Button } from "../ui/button";
 import { Post, useCreatePostMutation } from "@/store/services/post-service";
-import { create } from "domain";
 import { createFormData } from "@/utils/create-formdata";
 import { base64ToFile } from "@/utils/file-base64";
 import { useEffect } from "react";
-import { error } from "console";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
@@ -27,7 +25,11 @@ export default function NEWConformationForm() {
     }
     if (isPostSuccess) {
       toast.success("Post created successfully");
-      router.push("/");
+      dispatch(resetSlice());
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
+      //   router.push("/");
     }
   }, [isPostError, postLoading]);
 

@@ -106,7 +106,7 @@ export default function Component() {
               </Badge>
               <h2 className="text-lg font-semibold">Find a place</h2>
             </div>
-            <Link href="/add-listing">
+            <Link href="/all-listings">
               <Button className="mt-4 text-lg font-semibold border rounded-lg">Find a place</Button>
             </Link>
           </CardContent>

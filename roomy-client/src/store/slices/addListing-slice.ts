@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Address } from "../services/address-service";
-import { loadState, saveState } from "@/utils/addListing-local";
+import { loadState, removeState, saveState } from "@/utils/addListing-local";
 
 export enum FacilitiesEnum {
   Heat = "Heat",
@@ -77,7 +77,6 @@ const addListingSlice = createSlice({
     setPhotosInfo: (state, action: PayloadAction<PhotosInfo>) => {
       state.photosInfo = action.payload;
       console.log(state.photosInfo.photos, "photos info from slice");
-      // saveState("addListingState", state);
     },
     addPhotoInfo: (state, action: PayloadAction<string>) => {
       state.photosInfo.photos.push(action.payload);
@@ -114,6 +113,10 @@ const addListingSlice = createSlice({
       state.basicInfo.streetAddress = action.payload;
       saveState("addListingState", state);
     },
+    resetSlice(_state) {
+      removeState("addListingState");
+      return initialState;
+    },
   },
 });
 
@@ -129,6 +132,7 @@ export const {
   setBedInfo,
   setFacilities,
   setLaundry,
+  resetSlice,
 } = addListingSlice.actions;
 
 export default addListingSlice.reducer;

@@ -10,6 +10,16 @@ export type Address = {
   longitude: number;
 };
 
+export interface TomTomDetailsPopup {
+  latitute: number;
+  longitude: number;
+  key: string;
+  title: string;
+  description: string;
+  price: string;
+  imageSrc: string;
+}
+
 export const addressApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getAddress: build.query<any, string>({
