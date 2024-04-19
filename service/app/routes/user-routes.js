@@ -1,5 +1,5 @@
 import express from 'express';
-import { passportAuth } from '../utils/passportAuth.js';
+import { passportAdminUserAuth, passportAuth } from '../utils/passportAuth.js';
 import * as UserController from '../controllers/user-controller.js';
 
 const UserRouter = express.Router();
@@ -27,6 +27,14 @@ UserRouter.get(
     passportAuth(req, res, next);
   },
   UserController.getUserContext
+);
+
+UserRouter.get(
+  '/',
+  (req, res, next) => {
+    passportAdminUserAuth(req, res, next);
+  },
+  UserController.getAllUsers
 );
 
 export default UserRouter;

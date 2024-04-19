@@ -19,4 +19,12 @@ PaymentSubscriptionRouter.post(
   PaymentSubscriptionController.webhook
 );
 
+PaymentSubscriptionRouter.get(
+  '/get-active-subscription',
+  (req, res, next) => {
+    passportAuth(req, res, next);
+  },
+  PaymentSubscriptionController.getActiveSubscription
+);
+
 export default PaymentSubscriptionRouter;

@@ -192,3 +192,10 @@ export const webhook = async (req, res) => {
 
   res.status(200).end();
 };
+
+export const getActiveSubscription = async (req, res) => {
+  const user = req.user._id;
+  const subscription = await PaymentSubscriptionService.getActiveSubscription(user._id);
+
+  setResponse(res, subscription);
+};

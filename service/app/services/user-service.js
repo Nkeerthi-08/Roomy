@@ -89,3 +89,13 @@ export const getUser = async (query) => {
 
   return res;
 };
+
+export const getAllUsers = async () => {
+  const res = await User.find();
+
+  if (!res) {
+    throw new Error('Users not found');
+  }
+
+  return res;
+};

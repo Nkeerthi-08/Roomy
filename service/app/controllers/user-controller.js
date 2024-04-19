@@ -66,3 +66,12 @@ export const getUserContext = async (req, res) => {
     setResponseWithError(res, error);
   }
 };
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const response = await UserService.getAllUsers();
+    setResponse(res, response);
+  } catch (error) {
+    setResponseWithError(res, error);
+  }
+};

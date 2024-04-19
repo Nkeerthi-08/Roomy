@@ -14,3 +14,16 @@ export const updatePaymentSubscription = async (filter, params) => {
 
   return res;
 };
+
+export const getActiveSubscription = async (userId) => {
+  const res = await PaymentSubscription.findOne({
+    user: userId,
+    status: 'active',
+  });
+
+  if (!res) {
+    return false;
+  }
+
+  return res;
+};
