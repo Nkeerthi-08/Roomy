@@ -51,7 +51,7 @@ export default function Component() {
             src="https://cdn-assets.roomster.com/dist/65a6ebfefa0cf4b3afe8346a5d4d8fac.svg"
             alt="Placeholder"
             className="w-full h-auto"
-            style={{ maxWidth: "100%", height: "auto", maxHeight: "300px" }}
+            style={{ maxWidth: "100%", height: "auto", maxHeight: "350px" }}
           />
         </div>
       </div>
