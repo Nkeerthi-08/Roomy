@@ -16,6 +16,7 @@ export const SearchResult = ({ result, showResults }: SearchResultProps) => {
     <div
       className="search-result"
       onClick={() => {
+        console.log(result, "result");
         dispatch(setAddress(result));
         showResults(false);
       }}

@@ -1,26 +1,17 @@
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectItem,
-  SelectContent,
-  Select,
-} from "@/components/ui/select";
+import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CardContent, Card } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function Component() {
   return (
     <div className="relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-28">
         <div className="grid grid-cols-2 gap-8">
           <div className="text-center py-16 md:py-24">
-            <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">
-              Rooms for Rent
-            </h1>
-            <p className="mt-4 text-xl text-gray-500">
-              Find and rent your perfect room
-            </p>
+            <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">Rooms for Rent</h1>
+            <p className="mt-4 text-xl text-gray-500">Find and rent your perfect room</p>
             <div className="mt-8 flex justify-center">
               <div className="w-full max-w-md">
                 <Select>
@@ -33,15 +24,9 @@ export default function Component() {
                     <ChevronDownIcon className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="address1">
-                      123 Fake St, Springfield
-                    </SelectItem>
-                    <SelectItem value="address2">
-                      456 Elm St, Shelbyville
-                    </SelectItem>
-                    <SelectItem value="address3">
-                      789 Oak St, Capital City
-                    </SelectItem>
+                    <SelectItem value="address1">123 Fake St, Springfield</SelectItem>
+                    <SelectItem value="address2">456 Elm St, Shelbyville</SelectItem>
+                    <SelectItem value="address3">789 Oak St, Capital City</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -55,7 +40,7 @@ export default function Component() {
           />
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-8 px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+      <div className="grid grid-cols-2 gap-8 px-4 sm:px-6 lg:px-8 pb-16 md:pb-24 mt-40">
         <Card>
           <CardContent
             style={{
@@ -67,13 +52,13 @@ export default function Component() {
               borderTopRightRadius: "100px",
               borderBottomRightRadius: "0px",
               borderBottomLeftRadius: "100px",
-              backgroundPositionX: 'center',
-              backgroundPositionY: '100%',
-              backgroundSize: '102%',
-              backgroundAttachment: 'initial',
-              backgroundOrigin: 'initial',
-              backgroundClip: 'initial',
-              backgroundColor: 'rgb(211, 211, 211)'
+              backgroundPositionX: "center",
+              backgroundPositionY: "100%",
+              backgroundSize: "102%",
+              backgroundAttachment: "initial",
+              backgroundOrigin: "initial",
+              backgroundClip: "initial",
+              backgroundColor: "rgb(211, 211, 211)",
             }}
             className="flex flex-col items-center justify-center bg-white p-6 rounded-md"
           >
@@ -86,9 +71,9 @@ export default function Component() {
               </Badge>
               <h2 className="text-lg font-semibold">List a place</h2>
             </div>
-            <Button className="mt-4 text-lg font-semibold border rounded-lg">
-              List a place
-            </Button>
+            <Link href="/add-listing">
+              <Button className="mt-4 text-lg font-semibold border rounded-lg">List a place</Button>
+            </Link>
           </CardContent>
         </Card>
         <Card>
@@ -102,13 +87,13 @@ export default function Component() {
               borderTopRightRadius: "0px",
               borderBottomRightRadius: "100px",
               borderBottomLeftRadius: "0px",
-              backgroundPositionX: 'center',
-              backgroundPositionY: '49%',
-              backgroundSize: '100%',
-              backgroundAttachment: 'initial',
-              backgroundOrigin: 'initial',
-              backgroundClip: 'initial',
-              backgroundColor: 'rgb(211, 211, 211)'
+              backgroundPositionX: "center",
+              backgroundPositionY: "49%",
+              backgroundSize: "100%",
+              backgroundAttachment: "initial",
+              backgroundOrigin: "initial",
+              backgroundClip: "initial",
+              backgroundColor: "rgb(211, 211, 211)",
             }}
             className="flex flex-col items-center justify-center bg-white p-6 rounded-md"
           >
@@ -121,9 +106,9 @@ export default function Component() {
               </Badge>
               <h2 className="text-lg font-semibold">Find a place</h2>
             </div>
-            <Button className="mt-4 text-lg font-semibold border rounded-lg">
-              Find a place
-            </Button>
+            <Link href="/add-listing">
+              <Button className="mt-4 text-lg font-semibold border rounded-lg">Find a place</Button>
+            </Link>
           </CardContent>
         </Card>
       </div>

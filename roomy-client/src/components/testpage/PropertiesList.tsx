@@ -60,13 +60,6 @@ export default function PropertiesList() {
         </DropdownMenu>
       </header>
       <div className="flex flex-col md:flex-row">
-        {/* <Image
-          className="md:w-1/3 md:h-full md:fixed md:bg-cover md:bg-center"
-          src="/nextimage.png"
-          width={500}
-          height={500}
-          alt="Picture of the author"
-        /> */}
         <TomTomMap></TomTomMap>
         <main className="flex-1 md:max-h-[100dvh] md:overflow-y-auto">
           <section className="bg-white dark:bg-gray-950 p-4 md:p-6">

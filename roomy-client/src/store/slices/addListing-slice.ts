@@ -46,6 +46,8 @@ const initialState: InitialState = loadState("addListingState") || {
       city: "",
       stateCode: "",
       zipCode: "",
+      latitude: 0,
+      longitude: 0,
     },
     moveInDate: "",
   },
@@ -80,12 +82,7 @@ const addListingSlice = createSlice({
     addPhotoInfo: (state, action: PayloadAction<string>) => {
       state.photosInfo.photos.push(action.payload);
       console.log(state.photosInfo.photos, "photos info from slice");
-      const formData = new FormData();
-      state.photosInfo.photos.forEach((photo, index) => {
-        formData.append(`photo_${index}`, photo);
-      });
-      console.log(formData, "formData");
-      // saveState("addListingState", state);
+      saveState("addListingState", state);
     },
 
     setRoomDetails: (state, action: PayloadAction<RoomDetails>) => {
