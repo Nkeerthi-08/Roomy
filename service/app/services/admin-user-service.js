@@ -34,6 +34,11 @@ export const login = async (adminUser) => {
     success: true,
     message: 'Admin user logged in',
     token: 'Bearer ' + token,
+    user: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+    },
   };
 };
 

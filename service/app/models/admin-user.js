@@ -11,7 +11,9 @@ const AdminUserSchema = new Schema({
       validator: (v) => /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v),
     },
   },
-  name: { type: String, required: true },
+  name: { type: String, default: '' },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
   password: { type: String, required: true },
   createdAt: { type: Date, required: true, default: Date.now },
 });
