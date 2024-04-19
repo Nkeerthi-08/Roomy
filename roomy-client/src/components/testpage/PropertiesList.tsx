@@ -17,9 +17,6 @@ import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@
 import { PopoverTrigger, PopoverContent, Popover } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { FilterIcon, SearchIcon } from "lucide-react";
-// import placeholderImage from '@/../../roomy-client/nextimage.png'; // Import the image
-import placeholderImage from "../../constants/nextimage.png";
-import Image from "next/image";
 import { useState } from "react";
 import TomTomMap from "../shared/TomTomMap";
 
@@ -34,7 +31,6 @@ export default function PropertiesList() {
     refetchOnMountOrArgChange: true,
   });
   const [date, setDate] = useState<Date | undefined>(new Date());
-
 
   // if (productLoading) return <div>Loading...</div>;
   if (productFetching) return <div>Loading...</div>;

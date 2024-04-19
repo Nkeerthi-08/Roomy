@@ -2,13 +2,10 @@ import { Input } from "@/components/ui/input";
 
 import { Button } from "@/components/ui/button";
 
-import {
-  CarouselItem,
-  CarouselContent,
-  Carousel,
-} from "@/components/ui/carousel";
+import { CarouselItem, CarouselContent, Carousel } from "@/components/ui/carousel";
 
 import { Card } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function Component() {
   return (
@@ -60,7 +57,6 @@ export default function Component() {
                     src="/placeholder.svg"
                     style={{
                       aspectRatio: "300/150",
-
                       objectFit: "cover",
                     }}
                     width="300"
@@ -88,12 +84,13 @@ export default function Component() {
               <h3 className="text-xl font-semibold">Rent a home</h3>
 
               <p className="text-sm text-gray-600">
-                We’re creating a seamless online experience – from shopping on
-                the largest rental network, to applying, to paying rent.
+                We’re creating a seamless online experience – from shopping on the largest rental network, to
+                applying, to paying rent.
               </p>
             </div>
-
-            <Button variant="secondary">Find rentals</Button>
+            <Link href="/add-listing">
+              <Button variant="secondary">Find rentals</Button>
+            </Link>
           </Card>
 
           <Card className="flex flex-col items-center text-center space-y-4 p-4">
@@ -150,8 +147,8 @@ export default function Component() {
               <h3 className="text-xl font-semibold">Browse homes</h3>
 
               <p className="text-sm text-gray-600">
-                Find your place with an immersive photo experience and the most
-                listings, including things you won’t find anywhere else.
+                Find your place with an immersive photo experience and the most listings, including things you
+                won’t find anywhere else.
               </p>
             </div>
 
@@ -212,8 +209,7 @@ export default function Component() {
               <h3 className="text-xl font-semibold">Sell a home</h3>
 
               <p className="text-sm text-gray-600">
-                No matter what path you take to sell your home, we can help you
-                navigate a successful sale.
+                No matter what path you take to sell your home, we can help you navigate a successful sale.
               </p>
             </div>
 

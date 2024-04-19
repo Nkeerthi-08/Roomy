@@ -27,7 +27,7 @@ export const SearchBar = ({ setResults }: { setResults: any }) => {
   return (
     <div className="input-wrapper">
       <FaSearch id="search-icon" />
-      <input placeholder="Type to search..." value={input} onChange={(e) => handleChange(e.target.value)} />
+      <input placeholder="Address..." value={input} onChange={(e) => handleChange(e.target.value)} />
     </div>
   );
 };
