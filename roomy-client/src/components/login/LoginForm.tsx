@@ -5,7 +5,7 @@ import { useLoginMutation } from "@/store/services/auth";
 import { LoginReq } from "@/models/login/login";
 import toast, { Toaster } from "react-hot-toast";
 import { redirect } from "next/navigation";
-
+import "../../components/homepage/css/login.css";
 
 export default function LoginComponent() {
   const [email, setEmail] = useState("");
