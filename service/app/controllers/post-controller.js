@@ -3,6 +3,7 @@ import * as PostService from '../services/post-service.js';
 
 export const createPost = async (req, res) => {
   try {
+    console.log(req.body);
     const post = req.body;
     post.user = req.user;
     post.photos = req.files;

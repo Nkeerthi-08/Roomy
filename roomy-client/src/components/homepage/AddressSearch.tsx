@@ -3,11 +3,10 @@ import React, { useState } from "react";
 import SearchBox from "./SearchBox";
 import { SearchBar } from "./SearchBar";
 import { SearchResultsList } from "./SearchResultsList";
+import { Address } from "@/store/services/address-service";
 
 export default function AddressSearch() {
-  const [results, setResults] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [results, setResults] = useState<Address[] | null>(null);
 
   return (
     <div>

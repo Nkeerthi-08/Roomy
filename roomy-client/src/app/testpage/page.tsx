@@ -1,9 +1,9 @@
-import PropertiesList from "@/components/testpage/PropertiesList";
+import { CardList } from "@/components/testpage/CardList";
 
-export default function TestPage() {
+export default function Component() {
   return (
-    <div>
-      <PropertiesList></PropertiesList>
+    <div className="flex flex-col min-h-[100dvh]">
+      <main className="flex-1">{CardList()}</main>
     </div>
   );
 }

@@ -1,0 +1,37 @@
+import { apiSlice } from "../baseApiSlice";
+
+export type Address = {
+  streetAddress: string;
+  unitNo: string;
+  city: string;
+  stateCode: string;
+  zipCode: string;
+  latitude: number;
+  longitude: number;
+};
+
+export const addressApi = apiSlice.injectEndpoints({
+  endpoints: (build) => ({
+    getAddress: build.query<any, string>({
+      query: (value: string) => ({
+        url: `https://api.tomtom.com/search/2/search/${value}.json?key=7wrfpEwSd7EWHdmBmVH6L46RvgsJ1n3V&countrySet=US&limit=5`,
+      }),
+      transformResponse: (responseData: any) => {
+        console.log("Transfoming Response", responseData);
+        return responseData.results.map(
+          (result: any): Address => ({
+            streetAddress: `${result.address.freeformAddress || ""}`.trim(),
+            unitNo: result.address.municipalitySubdivision || "",
+            city: result.address.municipality || "",
+            stateCode: result.address.countrySubdivision || "",
+            zipCode: result.address.postalCode || "",
+            latitude: result.position.lat,
+            longitude: result.position.lon,
+          })
+        );
+      },
+    }),
+  }),
+});
+
+export const { useGetAddressQuery, useLazyGetAddressQuery } = addressApi;
