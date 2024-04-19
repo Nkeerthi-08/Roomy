@@ -79,3 +79,13 @@ export const getUserById = async (id) => {
 
   return res;
 };
+
+export const getUser = async (query) => {
+  const res = await User.findOne(query);
+
+  if (!res) {
+    throw new Error('User not found');
+  }
+
+  return res;
+};

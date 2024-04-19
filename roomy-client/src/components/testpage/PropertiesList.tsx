@@ -36,8 +36,8 @@ export default function PropertiesList() {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
 
-  if (productLoading) return <div>Loading...</div>;
-  // if (productFetching) return <div>Fetching...</div>;
+  // if (productLoading) return <div>Loading...</div>;
+  if (productFetching) return <div>Loading...</div>;
   if (productError) return <div>Error</div>;
 
   return (
