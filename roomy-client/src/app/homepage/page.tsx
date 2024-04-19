@@ -1,231 +1,116 @@
-import { Input } from "@/components/ui/input";
 
-import { Button } from "@/components/ui/button";
-
-import {
-  CarouselItem,
-  CarouselContent,
-  Carousel,
-} from "@/components/ui/carousel";
-
-import { Card } from "@/components/ui/card";
+import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { CardContent, Card } from "@/components/ui/card"
 
 export default function Component() {
   return (
-    <div
-      className="bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: "\"url('/placeholder.svg')\"",
-      }}
-    >
+    <div className="relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="pt-8 pb-16">
-          <div className="flex items-center max-w-lg mx-auto">
-            <Input
-              className="flex-1"
-              placeholder="Enter an address, neighborhood, city, or ZIP code"
-              type="text"
-            />
-
-            <Button className="ml-2" variant="default">
-              <SearchIcon className="h-6 w-6" />
-            </Button>
+        <div className="grid grid-cols-2 gap-8">
+          <div className="text-center py-16 md:py-24">
+            <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">Rooms for Rent</h1>
+            <p className="mt-4 text-xl text-gray-500">Find and rent your perfect room</p>
+            <div className="mt-8 flex justify-center">
+              <div className="w-full max-w-md">
+                <Select>
+                  <SelectTrigger
+                    aria-label="Search for an address, neighborhood, city or ZIP code"
+                    className="w-full relative"
+                    id="address"
+                  >
+                    <SelectValue placeholder="Enter an address, neighborhood, city or ZIP code" />
+                    <ChevronDownIcon className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="address1">123 Fake St, Springfield</SelectItem>
+                    <SelectItem value="address2">456 Elm St, Shelbyville</SelectItem>
+                    <SelectItem value="address3">789 Oak St, Capital City</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-16">
-          <Card className="flex flex-col items-center text-center space-y-4 p-4">
-            <Carousel className="w-full max-w-md">
-              <CarouselContent>
-                <CarouselItem>
-                  <img
-                    alt="Rent a home"
-                    className="object-cover h-36 w-full"
-                    height="150"
-                    src="/placeholder.svg"
-                    style={{
-                      aspectRatio: "300/150",
-
-                      objectFit: "cover",
-                    }}
-                    width="300"
-                  />
-                </CarouselItem>
-
-                <CarouselItem>
-                  <img
-                    alt="Rent a home"
-                    className="object-cover h-36 w-full"
-                    height="150"
-                    src="/placeholder.svg"
-                    style={{
-                      aspectRatio: "300/150",
-
-                      objectFit: "cover",
-                    }}
-                    width="300"
-                  />
-                </CarouselItem>
-
-                <CarouselItem>
-                  <img
-                    alt="Rent a home"
-                    className="object-cover h-36 w-full"
-                    height="150"
-                    src="/placeholder.svg"
-                    style={{
-                      aspectRatio: "300/150",
-
-                      objectFit: "cover",
-                    }}
-                    width="300"
-                  />
-                </CarouselItem>
-              </CarouselContent>
-            </Carousel>
-
-            <div>
-              <h3 className="text-xl font-semibold">Rent a home</h3>
-
-              <p className="text-sm text-gray-600">
-                We’re creating a seamless online experience – from shopping on
-                the largest rental network, to applying, to paying rent.
-              </p>
-            </div>
-
-            <Button variant="secondary">Find rentals</Button>
-          </Card>
-
-          <Card className="flex flex-col items-center text-center space-y-4 p-4">
-            <Carousel className="w-full max-w-md">
-              <CarouselContent>
-                <CarouselItem>
-                  <img
-                    alt="Browse homes"
-                    className="object-cover h-36 w-full"
-                    height="150"
-                    src="/placeholder.svg"
-                    style={{
-                      aspectRatio: "300/150",
-
-                      objectFit: "cover",
-                    }}
-                    width="300"
-                  />
-                </CarouselItem>
-
-                <CarouselItem>
-                  <img
-                    alt="Browse homes"
-                    className="object-cover h-36 w-full"
-                    height="150"
-                    src="/placeholder.svg"
-                    style={{
-                      aspectRatio: "300/150",
-
-                      objectFit: "cover",
-                    }}
-                    width="300"
-                  />
-                </CarouselItem>
-
-                <CarouselItem>
-                  <img
-                    alt="Browse homes"
-                    className="object-cover h-36 w-full"
-                    height="150"
-                    src="/placeholder.svg"
-                    style={{
-                      aspectRatio: "300/150",
-
-                      objectFit: "cover",
-                    }}
-                    width="300"
-                  />
-                </CarouselItem>
-              </CarouselContent>
-            </Carousel>
-
-            <div>
-              <h3 className="text-xl font-semibold">Browse homes</h3>
-
-              <p className="text-sm text-gray-600">
-                Find your place with an immersive photo experience and the most
-                listings, including things you won’t find anywhere else.
-              </p>
-            </div>
-
-            <Button variant="secondary">Browse homes</Button>
-          </Card>
-
-          <Card className="flex flex-col items-center text-center space-y-4 p-4">
-            <Carousel className="w-full max-w-md">
-              <CarouselContent>
-                <CarouselItem>
-                  <img
-                    alt="Sell a home"
-                    className="object-cover h-36 w-full"
-                    height="150"
-                    src="/placeholder.svg"
-                    style={{
-                      aspectRatio: "300/150",
-
-                      objectFit: "cover",
-                    }}
-                    width="300"
-                  />
-                </CarouselItem>
-
-                <CarouselItem>
-                  <img
-                    alt="Sell a home"
-                    className="object-cover h-36 w-full"
-                    height="150"
-                    src="/placeholder.svg"
-                    style={{
-                      aspectRatio: "300/150",
-
-                      objectFit: "cover",
-                    }}
-                    width="300"
-                  />
-                </CarouselItem>
-
-                <CarouselItem>
-                  <img
-                    alt="Sell a home"
-                    className="object-cover h-36 w-full"
-                    height="150"
-                    src="/placeholder.svg"
-                    style={{
-                      aspectRatio: "300/150",
-
-                      objectFit: "cover",
-                    }}
-                    width="300"
-                  />
-                </CarouselItem>
-              </CarouselContent>
-            </Carousel>
-
-            <div>
-              <h3 className="text-xl font-semibold">Sell a home</h3>
-
-              <p className="text-sm text-gray-600">
-                No matter what path you take to sell your home, we can help you
-                navigate a successful sale.
-              </p>
-            </div>
-
-            <Button variant="secondary">See your options</Button>
-          </Card>
+          <div className="bg-[url('/placeholder.svg?height=768&width=1566')] bg-cover bg-no-repeat" />
         </div>
       </div>
+      <div className="grid grid-cols-2 gap-8 px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+        <Card className="bg-[url('/placeholder.svg?height=400&width=800')] bg-cover bg-no-repeat">
+          <CardContent className="flex flex-col items-center justify-center bg-white p-6 rounded-md">
+            <div className="flex items-center justify-center space-x-4">
+              <Badge
+                className="h-16 w-16 rounded-full bg-[#f3f4f6] flex items-center justify-center"
+                variant="secondary"
+              >
+                <HomeIcon className="h-8 w-8 text-gray-500" />
+              </Badge>
+              <h2 className="text-lg font-semibold">List a place</h2>
+            </div>
+            <Button className="mt-4 text-lg font-semibold border rounded-lg">List a place</Button>
+          </CardContent>
+        </Card>
+        <Card className="bg-[url('/placeholder.svg?height=400&width=800')] bg-cover bg-no-repeat">
+          <CardContent className="flex flex-col items-center justify-center bg-white p-6 rounded-md">
+            <div className="flex items-center justify-center space-x-4">
+              <Badge
+                className="h-16 w-16 rounded-full bg-[#f3f4f6] flex items-center justify-center"
+                variant="secondary"
+              >
+                <SearchIcon className="h-8 w-8 text-gray-500" />
+              </Badge>
+              <h2 className="text-lg font-semibold">Find a place</h2>
+            </div>
+            <Button className="mt-4 text-lg font-semibold border rounded-lg">Find a place</Button>
+          </CardContent>
+        </Card>
+      </div>
     </div>
-  );
+  )
 }
 
-function SearchIcon(props: any) {
+function ChevronDownIcon(props:any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  )
+}
+
+
+function HomeIcon(props:any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <polyline points="9 22 9 12 15 12 15 22" />
+    </svg>
+  )
+}
+
+
+function SearchIcon(props:any) {
   return (
     <svg
       {...props}
@@ -240,8 +125,7 @@ function SearchIcon(props: any) {
       strokeLinejoin="round"
     >
       <circle cx="11" cy="11" r="8" />
-
       <path d="m21 21-4.3-4.3" />
     </svg>
-  );
+  )
 }
