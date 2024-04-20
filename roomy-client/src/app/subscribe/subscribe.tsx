@@ -1,12 +1,3 @@
-// import { PropertyCardList } from "@/components/all-listings/PropertyCardList";
-
-// export default function Component() {
-//   return (
-//     <div className="flex flex-col min-h-[100dvh]">
-//       <main className="flex-1">{PropertyCardList()}</main>
-//     </div>
-//   );
-// }
 import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
