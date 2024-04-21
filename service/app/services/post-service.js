@@ -1,5 +1,9 @@
 import Post from '../models/post.js';
-import { renderPostCreationEmail } from '../templates/post-templates.js';
+import {
+  renderPostApprovalEmail,
+  renderPostCreationEmail,
+  renderPostDeactivationEmail,
+} from '../templates/post-templates.js';
 import { sendEmail, uploadPhotos } from '../utils/azureUtils.js';
 import User from '../models/user.js';
 
@@ -135,15 +139,30 @@ export const approvePost = async (id, approvedBy) => {
     throw new Error('Post not approved');
   }
 
+  sendEmail(
+    [post.user.email],
+    'Post Approved',
+    'Your post has been approved',
+    renderPostApprovalEmail(post.user.name, post.title)
+  );
+
   return { message: 'Post approved', success: true };
 };
 
 export const deactivatePost = async (id) => {
-  const res = await Post.updateOne({ _id: id }, { active: false });
+  const post = await Post.findById(id).populate('user', 'name email');
+  const res = await Post.updateOne({ _id: id }, { active: false }, { new: true });
 
   if (!res || res.nModified === 0) {
     throw new Error('Post not deactivated');
   }
+
+  sendEmail(
+    [post.user.email],
+    'Post Deactivated',
+    'Your post has been deactivated',
+    renderPostDeactivationEmail(post.user.name, post.title)
+  );
 
   return { message: 'Post deactivated', success: true };
 };
