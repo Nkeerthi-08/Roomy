@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 import { useSelector } from "react-redux";
 import { selectTomTomData } from "@/store/services/post-service";
 import { PropertyCard } from "./PropertyCard";
+import { Skeleton } from "../ui/skeleton";
 
 mapboxgl.accessToken = "pk.eyJ1IjoianV0dHUiLCJhIjoiY2x2NHhlbG5wMGNzNjJqcDV6cThhZmVnaCJ9.xAOGHa9cDK16JwlUkMmmdA";
 
@@ -58,6 +59,7 @@ export default function TomTomMap() {
               description={marker.description}
               price={`$${marker.price || 0} per month`}
               imageSrc={marker.imageSrc || "/next.svg"}
+              propertyId={""}
             />
           </div>,
           popupEl
@@ -83,7 +85,16 @@ export default function TomTomMap() {
     }
   }, [lng, lat, zoom, addressData]);
 
-  if (addressData.isLoading) return <div>Loading...</div>;
+  if (addressData.isLoading)
+    return (
+      <div className="flex items-center space-x-4">
+        <Skeleton className="h-12 w-12 rounded-full" />
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[200px]" />
+        </div>
+      </div>
+    );
   return (
     <div
       style={{

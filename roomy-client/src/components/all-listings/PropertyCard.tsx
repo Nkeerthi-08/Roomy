@@ -2,17 +2,18 @@ import Link from "next/link";
 
 interface CardProps {
   key: string;
+  propertyId: string;
   title: string;
   description: string;
   price: string;
   imageSrc: string;
 }
 
-export function PropertyCard({ title, description, price, imageSrc }: CardProps) {
+export function PropertyCard({ propertyId, title, description, price, imageSrc }: CardProps) {
   return (
     <>
       <div className="relative group overflow-hidden rounded-lg shadow-lg">
-        <Link className="absolute inset-0 z-10" href="#">
+        <Link className="absolute inset-0 z-10" href={`/all-listings/${propertyId}`}>
           <span className="sr-only">View property</span>
         </Link>
         <img

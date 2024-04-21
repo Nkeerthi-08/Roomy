@@ -10,7 +10,7 @@ const init = (app) => {
   const MONGO_URI = process.env.MONGO_CONNECTION_STRING;
 
   initPassport(passport);
-
+  
   // Add the morgan middleware
   app.use(morganMiddleware);
   app.use(cors());

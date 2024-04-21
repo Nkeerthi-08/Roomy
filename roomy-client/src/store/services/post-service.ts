@@ -16,6 +16,7 @@ export interface Post {
   price: number;
   bedCount: number;
   bathCount: number;
+  utilities?: string[];
 }
 interface CompletePostDetails extends Post {
   _id: string;
@@ -70,10 +71,40 @@ export const postApi = apiSlice.injectEndpoints({
         formdata: true,
       }),
     }),
+    getPostById: build.query<CompletePostDetails, string>({
+      query: (id) => ({
+        url: `/posts/${id}`,
+        headers: {
+          Authorization: AUTH_TOKEN,
+        },
+      }),
+      transformResponse: (response: any) => {
+        console.log(response, "response");
+        return {
+          _id: response._id,
+          title: response.title,
+          phoneNumber: response.phoneNumber,
+          streetAddress: response.streetAddress,
+          unitNo: response.unitNo,
+          city: response.city,
+          stateCode: response.stateCode,
+          zipCode: response.zipCode,
+          latitude: response.latitude,
+          longitude: response.longitude,
+          startDateRange: new Date(response.startDateRange),
+          price: response.price,
+          bedCount: response.bedCount,
+          bathCount: response.bathCount,
+          active: response.active,
+          photos: response.photos,
+          utilities: response.utilities,
+        } as CompletePostDetails;
+      },
+    }),
   }),
 });
 
-export const { useCreatePostMutation, useGetPostsQuery } = postApi;
+export const { useCreatePostMutation, useGetPostsQuery, useGetPostByIdQuery } = postApi;
 
 export const selectPostsResult = postApi.endpoints.getPosts.select();
 export const selectTomTomData = createSelector(selectPostsResult, (postsResult) => {
