@@ -9,7 +9,6 @@ import { sendEmail, uploadPhotos } from '../utils/azureUtils.js';
  * @throws {Error} - If the post is not created.
  */
 export const createPost = async (post) => {
-  console.log(post);
   const photos = post.photos;
   const res = new Post(post);
   const photoUrls = await uploadPhotos(res._id, photos);

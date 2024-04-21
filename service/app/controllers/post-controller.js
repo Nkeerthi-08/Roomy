@@ -1,9 +1,9 @@
 import { setResponse, setResponseWithError } from './response-handler.js';
 import * as PostService from '../services/post-service.js';
+import Post from '../models/post.js';
 
 export const createPost = async (req, res) => {
   try {
-    console.log(req.body);
     const post = req.body;
     post.user = req.user;
     post.photos = req.files;
@@ -29,6 +29,47 @@ export const getPosts = async (req, res) => {
     // only fetch approved posts and active posts
     req.query.approved = true;
     req.query.active = true;
+
+    if (req.query.priceMin) {
+      req.query.price = { $gte: req.query.priceMin };
+      delete req.query.priceMin;
+    }
+
+    if (req.query.priceMax) {
+      req.query.price = { ...req.query.price, $lte: req.query.priceMax };
+      delete req.query.priceMax;
+    }
+
+    if (req.query.bedCount) {
+      req.query.bedCount = { $gte: req.query.bedCount };
+    }
+
+    if (req.query.bathCount) {
+      req.query.bathCount = { $gte: req.query.bathCount };
+    }
+
+    if (req.query.startDateRange) {
+      req.query.startDateRange = { $gte: new Date(req.query.startDateRange) };
+    }
+
+    if (req.query.endDateRange) {
+      req.query.endDateRange = { $lte: new Date(req.query.endDateRange) };
+    }
+
+    // remove any empty fields
+    Object.keys(req.query).forEach((key) => {
+      if (!req.query[key]) {
+        delete req.query[key];
+      }
+    });
+
+    // remove any extra fields that are not in the schema
+    const validFields = Post.schema.obj;
+    Object.keys(req.query).forEach((key) => {
+      if (!validFields[key]) {
+        delete req.query[key];
+      }
+    });
 
     const response = await PostService.getAllPosts(req.query);
     setResponse(res, response);
