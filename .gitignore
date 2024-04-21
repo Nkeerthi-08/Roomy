@@ -4,3 +4,4 @@ node_modules
 # ignore DS_Store files in all directories
 **/.DS_Store
 /service/logs/*
+.next
