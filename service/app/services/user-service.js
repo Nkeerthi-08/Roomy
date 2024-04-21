@@ -107,10 +107,10 @@ export const getAllUsers = async (query) => {
     },
     {
       $lookup: {
-        from: 'paymentSubscriptions',
+        from: 'paymentsubscriptions',
         localField: '_id',
         foreignField: 'user',
-        as: 'paymentSubscriptions',
+        as: 'paymentSubscription',
       },
     },
     {
@@ -119,14 +119,7 @@ export const getAllUsers = async (query) => {
         email: 1,
         name: 1,
         numberOfPosts: { $size: '$posts' },
-        posts: ['$posts'],
-        subscriptionStatus: {
-          $cond: {
-            if: { $eq: [{ $size: '$paymentSubscriptions' }, 0] },
-            then: 'inactive',
-            else: 'active',
-          },
-        },
+        paymentSubscriptions: '$paymentSubscription',
       },
     },
   ]);
@@ -134,6 +127,24 @@ export const getAllUsers = async (query) => {
   if (!res) {
     throw new Error('Users not found');
   }
+
+  // set subscription status if status === active and endDate > new Date().getTime()
+  res.forEach((user) => {
+    user.paymentSubscriptions.forEach((subscription) => {
+      if (
+        subscription.status === 'active' &&
+        subscription.endDate > new Date().getTime()
+      ) {
+        user.subscriptionStatus = 'active';
+      }
+    });
+
+    if (!user.subscriptionStatus) {
+      user.subscriptionStatus = 'inactive';
+    }
+
+    delete user.paymentSubscriptions;
+  });
 
   return res;
 };

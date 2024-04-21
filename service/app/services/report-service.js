@@ -8,6 +8,18 @@ import logger from '../utils/logger.js';
 export const createReport = async (report) => {
   report.post = await PostService.getPostById(report.postId);
 
+  if (!report.post) {
+    throw new Error('Post not found');
+  }
+
+  if (!report.post.active) {
+    throw new Error('Post is already deactivated');
+  }
+
+  if (!report.post.approved) {
+    throw new Error('Post needs to be approved before reporting');
+  }
+
   // check if the user has already reported the post
   const existingReport = await Report.findOne({ user: report.user, post: report.post });
 
@@ -64,11 +76,13 @@ export const getAllReports = async (query = {}) => {
       delete query.userEmail;
     }
 
-    const res = await Report.find(query).populate([
-      { path: 'user', select: 'name email', model: 'User' },
-      { path: 'post' },
-      { path: 'handledBy', select: 'name email', model: 'AdminUser' },
-    ]);
+    const res = await Report.find(query)
+      .populate([
+        { path: 'user', select: 'name email', model: 'User' },
+        { path: 'post' },
+        { path: 'handledBy', select: 'name email', model: 'AdminUser' },
+      ])
+      .sort({ createdAt: -1 });
 
     return res;
   } catch (error) {
@@ -112,23 +126,37 @@ export const handleReport = async (id, handledBy, status) => {
     throw new Error('Invalid status');
   }
 
-  // only admin can handle reports
+  // Only admin can handle reports
   if (handledBy.collection.modelName !== 'AdminUser') {
     throw new Error('Only admin can handle reports');
   }
 
-  const res = await Report.updateOne(
-    { _id: id },
-    { status: status, handledBy: handledBy, handledAt: new Date() }
-  );
+  // Fetch the report record along with the post ID
+  const report = await Report.findById(id).select('post').lean();
 
-  if (!res || res.nModified === 0) {
+  if (!report) {
+    throw new Error('Report not found');
+  }
+
+  // Update the report status and get the updated document
+  const updatedReport = await Report.findByIdAndUpdate(
+    id,
+    { status, handledBy, handledAt: new Date() },
+    { new: true }
+  ).lean();
+
+  if (!updatedReport) {
     throw new Error('Report not handled');
   }
 
-  if (status === 'approved') {
-    // PostService.deactivatePost(res.post._id);
-    console.log('Post deactivated');
+  // If status is approved, deactivate the post
+  if (status === 'approved' && report.post) {
+    await PostService.deactivatePost(report.post._id);
+
+    await Report.updateMany(
+      { post: report.post._id },
+      { status: 'approved', handledBy, handledAt: new Date() }
+    );
   }
 
   return { message: `Report ${status}`, success: true };

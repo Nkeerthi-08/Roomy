@@ -1,5 +1,6 @@
 import { BlobServiceClient } from '@azure/storage-blob';
 import { EmailClient } from '@azure/communication-email';
+import logger from './logger.js';
 
 /**
  * Uploads photos to Azure Blob Storage.
@@ -51,8 +52,8 @@ export const sendEmail = async (emails, subject, message, html = null) => {
     const poller = await emailClient.beginSend(emailMessage);
     const result = await poller.pollUntilDone();
 
-    console.log('Email sent with message id: ', result);
+    logger.info(`Email sent with message id: ${result}`);
   } catch (error) {
-    console.error(`Error sending email: ${error.message}`);
+    logger.error(`Error sending email: ${error.message}`);
   }
 };
