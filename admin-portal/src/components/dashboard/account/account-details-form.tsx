@@ -28,19 +28,7 @@ const schema = zod.object({
   firstName: zod.string(),
   lastName: zod.string(),
   password: zod.string().optional(), // Make password optional
-  confirmPassword: zod
-    .string()
-    .refine(
-      (value, data) => {
-        // If password is present, confirm password is required
-        return !data.password || (Boolean(value) && value === data.password);
-      },
-      {
-        message: 'Passwords do not match',
-        path: ['confirmPassword'],
-      }
-    )
-    .optional(), // Make confirm password optional
+  confirmPassword: zod.string().optional(), // Make confirmPassword optional
 });
 
 type Values = zod.infer<typeof schema>;
@@ -62,7 +50,7 @@ export function AccountDetailsForm(): React.JSX.Element {
       setIsPending(true);
 
       const { error } = await authClient.updateUserInfo({
-        _id: user?._id || '',
+        _id: user?.id || '',
         ...values,
         password: values.password || '', // Ensure password is always a string
         confirmPassword: values.confirmPassword || '', // Ensure confirmPassword is always a string
