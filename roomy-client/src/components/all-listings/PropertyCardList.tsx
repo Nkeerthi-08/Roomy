@@ -16,14 +16,18 @@ const PropertyCardSkeleton = () => (
 const ErrorComponent = ({ message }: { message: string }) => <div className="text-red-500">{message}</div>;
 
 export function PropertyCardList() {
+  const bathCount = 3;
   const {
     data: posts,
     isLoading: postsLoading,
     isFetching: postsFetching,
     error: postsError,
-  } = useGetPostsQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  });
+  } = useGetPostsQuery(
+    { bathCount: bathCount },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
   const addressData = useSelector(selectTomTomData);
   useEffect(() => {
     console.log(addressData, "addressData");

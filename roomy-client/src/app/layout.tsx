@@ -47,7 +47,9 @@ export default function RootLayout({
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>My Account</DropdownMenuItem>
+              <Link href={"/profile"}>
+                <DropdownMenuItem>My Account</DropdownMenuItem>
+              </Link>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
               <LogoutComponent></LogoutComponent>
