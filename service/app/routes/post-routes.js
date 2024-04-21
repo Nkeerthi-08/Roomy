@@ -24,7 +24,13 @@ PostRouter.get(
   PostController.getUserPosts
 );
 
-PostRouter.get('/all-posts', PostController.getAllPosts);
+PostRouter.get(
+  '/all-posts',
+  (req, res, next) => {
+    passportAdminUserAuth(req, res, next);
+  },
+  PostController.getAllPosts
+);
 
 PostRouter.get('/:id', PostController.getPostById);
 
@@ -51,6 +57,14 @@ PostRouter.put(
     passportAdminUserAuth(req, res, next);
   },
   PostController.approvePost
+);
+
+PostRouter.post(
+  '/approve-all',
+  (req, res, next) => {
+    passportAdminUserAuth(req, res, next);
+  },
+  PostController.approveAllPosts
 );
 
 export default PostRouter;

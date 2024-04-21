@@ -4,7 +4,8 @@ import * as AdminUserService from '../services/admin-user-service.js';
 export const register = async (req, res) => {
   try {
     const adminUser = {};
-    adminUser.name = req.body.name;
+    adminUser.firstName = req.body.firstName;
+    adminUser.lastName = req.body.lastName;
     adminUser.email = req.body.email;
     adminUser.password = req.body.password;
 
@@ -32,10 +33,11 @@ export const login = async (req, res) => {
 export const update = async (req, res) => {
   try {
     const adminUser = req.adminUser;
-    const { name, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
     const response = await AdminUserService.update(adminUser, {
-      name,
+      firstName,
+      lastName,
       email,
       password,
     });

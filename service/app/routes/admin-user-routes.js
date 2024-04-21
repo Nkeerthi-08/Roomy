@@ -1,5 +1,5 @@
 import express from 'express';
-import { passportAuth } from '../utils/passportAuth.js';
+import { passportAdminUserAuth } from '../utils/passportAuth.js';
 
 import * as AdminUserController from '../controllers/admin-user-controller.js';
 
@@ -8,16 +8,16 @@ const AdminUserRouter = express.Router();
 AdminUserRouter.post('/login', AdminUserController.login);
 AdminUserRouter.post('/register', AdminUserController.register);
 AdminUserRouter.put(
-  '/update',
+  '/:id',
   (req, res, next) => {
-    passportAuth(req, res, next);
+    passportAdminUserAuth(req, res, next);
   },
   AdminUserController.update
 );
 AdminUserRouter.delete(
   '/delete',
   (req, res, next) => {
-    passportAuth(req, res, next);
+    passportAdminUserAuth(req, res, next);
   },
   AdminUserController.deleteUser
 );

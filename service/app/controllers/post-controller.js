@@ -26,7 +26,7 @@ export const getUserPosts = async (req, res) => {
 
 export const getAllPosts = async (req, res) => {
   try {
-    const response = await PostService.getAllPosts();
+    const response = await PostService.getAllPosts(req.query);
     setResponse(res, response);
   } catch (error) {
     setResponseWithError(res, error);
@@ -70,6 +70,27 @@ export const approvePost = async (req, res) => {
     const adminUser = req.adminUser;
     const response = await PostService.approvePost(id, adminUser);
     setResponse(res, response);
+  } catch (error) {
+    setResponseWithError(res, error);
+  }
+};
+
+export const approveAllPosts = async (req, res) => {
+  try {
+    const adminUser = req.adminUser;
+
+    const posts = await PostService.getAllPosts({});
+    // const posts = await PostService.getAllPosts({ approved: true });
+
+    if (!posts.length) {
+      throw new Error('No posts to approve');
+    }
+
+    posts.forEach(async (post) => {
+      await PostService.approvePost(post._id, adminUser);
+    });
+
+    setResponse(res, { message: 'All posts approved', success: true });
   } catch (error) {
     setResponseWithError(res, error);
   }

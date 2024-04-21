@@ -35,7 +35,21 @@ export const getPostReports = async (req, res) => {
 
 export const getAllReports = async (req, res) => {
   try {
-    const response = await ReportService.getAllReports();
+    const query = req.query;
+    const filteredQuery = {};
+
+    for (const params in query) {
+      if (
+        Object.hasOwnProperty.call(query, params) &&
+        query[params] &&
+        query[params] !== ''
+      ) {
+        const element = query[params];
+        filteredQuery[params] = element;
+      }
+    }
+
+    const response = await ReportService.getAllReports(filteredQuery);
     setResponse(res, response);
   } catch (error) {
     setResponseWithError(res, error);
@@ -55,7 +69,7 @@ export const getReportById = async (req, res) => {
 export const handleReport = async (req, res) => {
   try {
     const id = req.params.id;
-    const handledBy = req.user;
+    const handledBy = req.adminUser;
     const status = req.body.status;
 
     const response = await ReportService.handleReport(id, handledBy, status);

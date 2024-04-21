@@ -87,3 +87,17 @@ export const retrieveCustomer = async (customer) => {
   const res = await stripeClient.customers.retrieve(customer);
   return res;
 };
+
+export const getSubscriptions = async () => {
+  const subscriptions = await stripeClient.subscriptions.list({
+    status: 'active',
+    limit: 1,
+  });
+
+  return subscriptions;
+};
+
+export const getStripeBalance = async () => {
+  const balance = await stripeClient.balance.retrieve();
+  return balance;
+};

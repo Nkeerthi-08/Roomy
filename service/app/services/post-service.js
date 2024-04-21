@@ -39,12 +39,12 @@ export const getUserPosts = async (userId) => {
   return res;
 };
 
-export const getAllPosts = async (approved = null) => {
-  // If approved parameter is null, retrieve all posts
-  const query = approved === null ? {} : { approved };
-
-  // Execute the query
-  const posts = await Post.find(query);
+export const getAllPosts = async (query) => {
+  // get all associated users and sort by latest first
+  const posts = await Post.find(query)
+    .populate('user', 'name email')
+    .sort({ createdAt: -1 });
+  //
 
   if (!posts) {
     throw new Error('Posts not found');
@@ -102,6 +102,7 @@ export const approvePost = async (id, approvedBy) => {
   const res = await Post.updateOne(
     { _id: id },
     { approved: true, approvedBy: approvedBy, approvedAt: new Date() }
+    // { approved: false, approvedBy: approvedBy, approvedAt: new Date() }
   );
 
   if (!res || res.nModified === 0) {

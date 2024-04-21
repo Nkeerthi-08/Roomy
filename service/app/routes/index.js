@@ -3,6 +3,7 @@ import UserRouter from './user-routes.js';
 import PostRouter from './post-routes.js';
 import ReportRouter from './report-routes.js';
 import PaymentSubscriptionRouter from './payment-subscription-routes.js';
+import DashboardRouter from './dashboard-routes.js';
 
 const ininializeRoutes = (app) => {
   app.use('/users', UserRouter);
@@ -10,6 +11,7 @@ const ininializeRoutes = (app) => {
   app.use('/posts', PostRouter);
   app.use('/reports', ReportRouter);
   app.use('/payments', PaymentSubscriptionRouter);
+  app.use('/dashboard', DashboardRouter);
 };
 
 export default ininializeRoutes;

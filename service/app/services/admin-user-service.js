@@ -36,20 +36,48 @@ export const login = async (adminUser) => {
     token: 'Bearer ' + token,
     user: {
       id: user._id,
-      name: user.name,
+      name: user.firstName + ' ' + user.lastName,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
     },
   };
 };
 
 export const update = async (adminUser, updatedFields) => {
-  const res = await AdminUser.updateOne({ email: adminUser.email }, updatedFields);
+  if (!updatedFields) {
+    throw new Error('No fields to update');
+  }
+
+  if (updatedFields.password) {
+    const salt = await bcrypt.genSalt(10);
+    updatedFields.password = await bcrypt.hash(updatedFields.password, salt);
+  }
+
+  const res = await AdminUser.updateOne({ _id: adminUser._id }, updatedFields);
+
+  const user = await AdminUser.findById(adminUser._id);
 
   if (!res) {
     throw new Error('Admin User not updated');
   }
 
-  return { message: 'Admin User updated', success: true };
+  const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
+    expiresIn: 2592000,
+  });
+
+  return {
+    message: 'Admin User updated',
+    success: true,
+    token: 'Bearer ' + token,
+    user: {
+      id: user._id,
+      name: user.firstName + ' ' + user.lastName,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    },
+  };
 };
 
 export const deleteAdminUser = async (adminUser) => {

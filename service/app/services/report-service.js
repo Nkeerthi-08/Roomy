@@ -1,7 +1,9 @@
 import Report from '../models/report.js';
 import * as PostService from './post-service.js';
+import * as UserService from './user-service.js';
 import { sendEmail } from '../utils/azureUtils.js';
 import { renderReportCreationEmail } from '../templates/report-templates.js';
+import logger from '../utils/logger.js';
 
 export const createReport = async (report) => {
   report.post = await PostService.getPostById(report.postId);
@@ -49,8 +51,30 @@ export const getPostReports = async (postId) => {
 };
 
 export const getAllReports = async (query = {}) => {
-  // Execute the query
-  const res = await Report.find(query);
+  const res = [];
+  try {
+    // Find the user document based on the userEmail
+
+    let user = null;
+    if (query.userEmail) {
+      user = await UserService.getUser({ email: query.userEmail });
+    }
+    if (user) {
+      query.user = user._id;
+      delete query.userEmail;
+    }
+
+    const res = await Report.find(query).populate([
+      { path: 'user', select: 'name email', model: 'User' },
+      { path: 'post' },
+      { path: 'handledBy', select: 'name email', model: 'AdminUser' },
+    ]);
+
+    return res;
+  } catch (error) {
+    logger.error(error);
+    return [];
+  }
 
   if (!res) {
     throw new Error('Reports not found');
@@ -80,6 +104,14 @@ export const deleteReport = async (id) => {
 };
 
 export const handleReport = async (id, handledBy, status) => {
+  if (!id || !handledBy || !status) {
+    throw new Error('Missing required fields');
+  }
+
+  if (!['approved', 'rejected'].includes(status)) {
+    throw new Error('Invalid status');
+  }
+
   // only admin can handle reports
   if (handledBy.collection.modelName !== 'AdminUser') {
     throw new Error('Only admin can handle reports');
@@ -95,7 +127,8 @@ export const handleReport = async (id, handledBy, status) => {
   }
 
   if (status === 'approved') {
-    PostService.deactivatePost(res.post._id);
+    // PostService.deactivatePost(res.post._id);
+    console.log('Post deactivated');
   }
 
   return { message: `Report ${status}`, success: true };

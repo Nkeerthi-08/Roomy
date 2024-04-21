@@ -69,7 +69,8 @@ export const getUserContext = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
   try {
-    const response = await UserService.getAllUsers();
+    const queryParams = req.query;
+    const response = await UserService.getAllUsers(queryParams);
     setResponse(res, response);
   } catch (error) {
     setResponseWithError(res, error);

@@ -23,7 +23,7 @@ export const register = async (user) => {
     [user.email],
     'Welcome',
     'Welcome to our platform',
-    renderWelcomeEmail(userFromDb.name)
+    renderWelcomeEmail(user.name)
   );
   return { message: 'User created', success: true };
 };
@@ -74,7 +74,7 @@ export const getUserById = async (id) => {
   const res = await User.findById(id);
 
   if (!res) {
-    throw new Error('User not found');
+    throw new Error('User not found by id');
   }
 
   return res;
@@ -84,14 +84,76 @@ export const getUser = async (query) => {
   const res = await User.findOne(query);
 
   if (!res) {
-    throw new Error('User not found');
+    throw new Error('User not found getUser');
   }
 
   return res;
 };
 
-export const getAllUsers = async () => {
-  const res = await User.find();
+export const getAllUsers = async (query) => {
+  const res = await User.aggregate([
+    {
+      $lookup: {
+        from: 'posts',
+        localField: '_id',
+        foreignField: 'user',
+        as: 'posts',
+      },
+    },
+    {
+      $lookup: {
+        from: 'paymentSubscriptions',
+        localField: '_id',
+        foreignField: 'user',
+        as: 'paymentSubscriptions',
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        email: 1,
+        name: 1,
+        numberOfPosts: { $size: '$posts' },
+        posts: ['$posts'],
+        subscriptionStatus: {
+          $cond: {
+            if: { $eq: [{ $size: '$paymentSubscriptions' }, 0] },
+            then: 'inactive',
+            else: 'active',
+          },
+        },
+      },
+    },
+  ]);
+
+  if (!res) {
+    throw new Error('Users not found');
+  }
+
+  return res;
+};
+
+export const getUsersCreatedLast30Days = async () => {
+  const res = await User.find({
+    createdAt: {
+      $gte: new Date(new Date().setDate(new Date().getDate() - 30)),
+    },
+  });
+
+  if (!res) {
+    throw new Error('Users not found');
+  }
+
+  return res;
+};
+
+export const getUsersCreatedBetween = async (startDate, endDate) => {
+  const res = await User.find({
+    createdAt: {
+      $gte: startDate,
+      $lte: endDate,
+    },
+  });
 
   if (!res) {
     throw new Error('Users not found');

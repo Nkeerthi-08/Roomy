@@ -22,12 +22,18 @@ ReportRouter.get(
   ReportController.getPostReports
 );
 
-ReportRouter.get('/all-reports', ReportController.getAllReports);
+ReportRouter.get(
+  '/all-reports',
+  (req, res, next) => {
+    passportAdminUserAuth(req, res, next);
+  },
+  ReportController.getAllReports
+);
 
 ReportRouter.get('/:id', ReportController.getReportById);
 
 ReportRouter.put(
-  '/:id',
+  '/:id/handle',
   (req, res, next) => {
     passportAdminUserAuth(req, res, next);
   },
