@@ -51,6 +51,11 @@ export const login = async (user) => {
 };
 
 export const update = async (user, updatedFields) => {
+  if (updatedFields.password) {
+    const salt = await bcrypt.genSalt(10);
+    updatedFields.password = await bcrypt.hash(updatedFields.password, salt);
+  }
+
   const res = await User.updateOne({ email: user.email }, updatedFields);
 
   if (!res) {
