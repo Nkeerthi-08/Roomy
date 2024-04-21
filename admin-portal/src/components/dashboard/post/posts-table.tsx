@@ -20,6 +20,7 @@ import dayjs from 'dayjs';
 
 import { type Post } from '@/types/post';
 import { makeRequest } from '@/lib/services/base-api';
+import { statusColors } from '@/styles/theme/color-schemes';
 
 import PostModal from './post-modal';
 import { PostsFilters } from './posts-filters';
@@ -28,10 +29,18 @@ function applyPagination(rows: Post[], page: number, rowsPerPage: number): Post[
   return rows.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 }
 
+const filterStatusMap: { [key: string]: (string | boolean)[] } = {
+  'active=false': ['active', false],
+  'active=true': ['active', true],
+  'approved=false': ['approved', false],
+  'approved=true': ['approved', true],
+  '': ['', ''],
+};
+
 export function PostsTable(): React.JSX.Element {
   const [customers, setCustomers] = React.useState([] as Post[]);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [count, setCount] = React.useState(0);
   const [selectedPost, setSelectedPost] = React.useState<Post | null>(null); // State for selected posts
   const [shouldRefetch, setShouldRefetch] = React.useState(false);
@@ -80,9 +89,32 @@ export function PostsTable(): React.JSX.Element {
     setSelectedPost(null);
   };
 
+  const searchPosts = async ({
+    searchQuery,
+    filterStatus,
+    searchCriteria,
+  }: {
+    searchQuery: string;
+    filterStatus: string;
+    searchCriteria: string;
+  }) => {
+    filterStatus = filterStatusMap[filterStatus];
+
+    const res = await makeRequest(
+      'posts/all-posts',
+      {
+        [searchCriteria]: searchQuery,
+        [filterStatus[0]]: filterStatus[1],
+      },
+      'GET'
+    );
+    setCustomers(res);
+    setCount(res.length);
+  };
+
   return (
     <>
-      <PostsFilters onApproveAll={approveAllPosts} />
+      <PostsFilters onApproveAll={approveAllPosts} searchPosts={searchPosts} />
 
       <Card>
         <Box sx={{ overflowX: 'auto' }}>
@@ -90,6 +122,8 @@ export function PostsTable(): React.JSX.Element {
             <TableHead>
               <TableRow>
                 <TableCell>Title</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Active</TableCell>
                 <TableCell>Photos Uploaded</TableCell>
                 <TableCell>User Email</TableCell>
                 <TableCell>Creation Date</TableCell>
@@ -105,6 +139,16 @@ export function PostsTable(): React.JSX.Element {
                         <Typography variant="subtitle2">{row.title}</Typography>
                       </Stack>
                     </TableCell>
+                    <TableCell>
+                      <Chip
+                        color={statusColors[row.approved ? 'approved' : 'pending']}
+                        label={row.approved ? 'Approved' : 'Pending'}
+                        size="small"
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Chip color={statusColors[row.active]} label={row.active ? 'Active' : 'Inactive'} size="small" />
+                    </TableCell>
                     <TableCell>{row?.photos?.length}</TableCell>
                     <TableCell>{row.user.email}</TableCell>
                     <TableCell>
@@ -113,15 +157,17 @@ export function PostsTable(): React.JSX.Element {
 
                     <TableCell>
                       <Stack direction="row" spacing={1}>
-                        <Button
-                          color="inherit"
-                          startIcon={<CheckIcon fontSize="var(--icon-fontSize-md)" />}
-                          onClick={(e) => {
-                            approvePost(row._id);
-                          }}
-                        >
-                          Approve
-                        </Button>
+                        {!row.approved && row.active && (
+                          <Button
+                            color="inherit"
+                            startIcon={<CheckIcon fontSize="var(--icon-fontSize-md)" />}
+                            onClick={(e) => {
+                              approvePost(row._id);
+                            }}
+                          >
+                            Approve
+                          </Button>
+                        )}
                         <Button
                           color="inherit"
                           startIcon={<EyeIcon fontSize="var(--icon-fontSize-md)" />}

@@ -89,12 +89,6 @@ export const getAllReports = async (query = {}) => {
     logger.error(error);
     return [];
   }
-
-  if (!res) {
-    throw new Error('Reports not found');
-  }
-
-  return res;
 };
 
 export const getReportById = async (id) => {

@@ -1,6 +1,7 @@
 import Post from '../models/post.js';
 import { renderPostCreationEmail } from '../templates/post-templates.js';
 import { sendEmail, uploadPhotos } from '../utils/azureUtils.js';
+import User from '../models/user.js';
 
 /**
  * Creates a new post.
@@ -39,6 +40,15 @@ export const getUserPosts = async (userId) => {
 };
 
 export const getAllPosts = async (query) => {
+  if (query.userEmail) {
+    const user = await User.findOne({ email: query.userEmail });
+    if (!user) {
+      return [];
+    }
+    query.user = user._id;
+    delete query.userEmail;
+  }
+
   // get all associated users and sort by latest first
   const posts = await Post.find(query)
     .populate('user', 'name email')
@@ -93,9 +103,26 @@ export const deletePost = async (id) => {
  * @throws {Error} - If the user is not an admin or if the post is not approved.
  */
 export const approvePost = async (id, approvedBy) => {
+  if (!id) {
+    throw new Error('Post ID is required');
+  }
+
   // only admin can approve posts
   if (approvedBy.collection.modelName !== 'AdminUser') {
     throw new Error('Only admin can approve posts');
+  }
+
+  const post = await Post.findById(id);
+  if (!post) {
+    throw new Error('Post not found');
+  }
+
+  if (post.approved) {
+    throw new Error('Post already approved');
+  }
+
+  if (!post.active) {
+    throw new Error('Post is not active');
   }
 
   const res = await Post.updateOne(

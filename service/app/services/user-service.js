@@ -95,8 +95,11 @@ export const getUser = async (query) => {
   return res;
 };
 
-export const getAllUsers = async (query) => {
+export const getAllUsers = async (query = {}) => {
   const res = await User.aggregate([
+    {
+      $match: query,
+    },
     {
       $lookup: {
         from: 'posts',

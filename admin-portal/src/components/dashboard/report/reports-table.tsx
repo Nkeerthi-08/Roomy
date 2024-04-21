@@ -20,6 +20,7 @@ import dayjs from 'dayjs';
 
 import { type Report } from '@/types/report';
 import { makeRequest } from '@/lib/services/base-api';
+import { statusColors } from '@/styles/theme/color-schemes';
 
 import ReportModal from './report-modal';
 import { ReportsFilters } from './reports-filters';
@@ -27,12 +28,6 @@ import { ReportsFilters } from './reports-filters';
 function applyPagination(rows: Report[], page: number, rowsPerPage: number): Report[] {
   return rows.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 }
-
-const statusColors = {
-  pending: 'warning',
-  approved: 'primary',
-  rejected: 'secondary',
-};
 
 export function ReportsTable(): React.JSX.Element {
   const [reports, setReports] = React.useState([] as Report[]);
@@ -94,7 +89,6 @@ export function ReportsTable(): React.JSX.Element {
   return (
     <>
       <ReportsFilters searchReports={searchReports} />
-
       <Card>
         <Box sx={{ overflowX: 'auto' }}>
           <Table sx={{ minWidth: '800px' }}>
@@ -117,7 +111,10 @@ export function ReportsTable(): React.JSX.Element {
                       </Stack>
                     </TableCell>
                     <TableCell>
-                      <Chip color={statusColors[row.status]} label={row.status} size="small" />
+                      <Chip
+                        color={statusColors[row.status]}
+                        label={row.status === 'pending' ? 'Pending' : 'Approved'}
+                      />
                     </TableCell>
                     <TableCell>{row.user.email}</TableCell>
                     <TableCell>

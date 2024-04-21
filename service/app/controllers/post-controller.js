@@ -80,6 +80,21 @@ export const getPosts = async (req, res) => {
 
 export const getAllPosts = async (req, res) => {
   try {
+    // remove any empty fields
+    Object.keys(req.query).forEach((key) => {
+      if (!req.query[key]) {
+        delete req.query[key];
+      }
+    });
+
+    if (req.query.title) {
+      req.query.title = { $regex: req.query.title, $options: 'i' };
+    }
+
+    if (req.query.description) {
+      req.query.description = { $regex: req.query.description, $options: 'i' };
+    }
+
     const response = await PostService.getAllPosts(req.query);
     setResponse(res, response);
   } catch (error) {
