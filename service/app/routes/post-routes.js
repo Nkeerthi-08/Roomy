@@ -25,6 +25,14 @@ PostRouter.get(
 );
 
 PostRouter.get(
+  '/',
+  (req, res, next) => {
+    passportAuth(req, res, next);
+  },
+  PostController.getPosts
+);
+
+PostRouter.get(
   '/all-posts',
   (req, res, next) => {
     passportAdminUserAuth(req, res, next);

@@ -24,6 +24,19 @@ export const getUserPosts = async (req, res) => {
   }
 };
 
+export const getPosts = async (req, res) => {
+  try {
+    // only fetch approved posts and active posts
+    req.query.approved = true;
+    req.query.active = true;
+
+    const response = await PostService.getAllPosts(req.query);
+    setResponse(res, response);
+  } catch (error) {
+    setResponseWithError(res, error);
+  }
+};
+
 export const getAllPosts = async (req, res) => {
   try {
     const response = await PostService.getAllPosts(req.query);
