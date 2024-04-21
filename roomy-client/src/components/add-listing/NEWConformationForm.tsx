@@ -28,8 +28,7 @@ export default function NEWConformationForm() {
       dispatch(resetSlice());
       setTimeout(() => {
         router.push("/");
-      }, 2000);
-      //   router.push("/");
+      }, 3000);
     }
   }, [isPostError, postLoading]);
 

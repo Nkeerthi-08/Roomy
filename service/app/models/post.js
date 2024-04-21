@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import { Schema } from 'mongoose';
 
 // Define the photo schema
-
 const photoSchema = new mongoose.Schema({
   url: { type: String, required: false },
   id: { type: String, required: false },

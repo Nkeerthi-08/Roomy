@@ -115,7 +115,7 @@ const addListingSlice = createSlice({
     },
     resetSlice(_state) {
       removeState("addListingState");
-      return initialState;
+      // return initialState;
     },
   },
 });

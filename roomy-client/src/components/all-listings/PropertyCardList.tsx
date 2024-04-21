@@ -4,6 +4,7 @@ import { use, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { get } from "http";
 import { PropertyCard } from "./PropertyCard";
+import Link from "next/link";
 
 const PropertyCardSkeleton = () => (
   <div className="animate-pulse bg-gray-200 rounded-xl p-4">
@@ -26,6 +27,7 @@ export function PropertyCardList() {
   const addressData = useSelector(selectTomTomData);
   useEffect(() => {
     console.log(addressData, "addressData");
+    console.log(posts, "posts from property card list");
   }, [postsLoading]);
 
   if (postsLoading && !posts) {
@@ -47,6 +49,7 @@ export function PropertyCardList() {
       {posts?.map((property) => (
         <PropertyCard
           key={property._id}
+          propertyId={property._id}
           title={property.title}
           description={`${property.bedCount || 0} bedrooms, ${property.bathCount || 0} baths`}
           price={`$${property.price || 0} per month`}
