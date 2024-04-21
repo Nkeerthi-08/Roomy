@@ -163,6 +163,23 @@ export const webhook = async (req, res) => {
     );
   }
 
+  // For canceled
+  if (event.type === 'customer.subscription.deleted') {
+    const subscription = event.data.object;
+    // logger.info(event);
+    if (subscription.status === 'canceled') {
+      logger.info(`Subscription ${subscription.id} was canceled.`);
+      // DB code to update the customer's subscription status in your database
+      await PaymentSubscriptionService.updatePaymentSubscription(
+        { stripeSubscriptionId: subscription.id },
+        {
+          status: 'canceled',
+          updatedAt: new Date(),
+        }
+      );
+    }
+  }
+
   // For canceled/renewed subscription
   if (event.type === 'customer.subscription.updated') {
     const subscription = event.data.object;
@@ -173,7 +190,6 @@ export const webhook = async (req, res) => {
       await PaymentSubscriptionService.updatePaymentSubscription(
         { stripeSubscriptionId: subscription.id },
         {
-          status: 'canceled',
           updatedAt: new Date(),
         }
       );

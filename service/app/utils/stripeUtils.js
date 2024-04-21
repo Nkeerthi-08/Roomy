@@ -93,7 +93,6 @@ export const retrieveCustomer = async (customer) => {
 export const getSubscriptions = async () => {
   const subscriptions = await stripeClient.subscriptions.list({
     status: 'active',
-    limit: 1,
   });
 
   return subscriptions;

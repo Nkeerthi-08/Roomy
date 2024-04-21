@@ -25,7 +25,7 @@ export const getActiveSubscription = async (userId) => {
     return { message: 'No active subscription', success: false };
   }
 
-  if (res.status !== 'active' || res.endDate < new Date()) {
+  if (res.status !== 'active' || new Date(res.endDate) < new Date()) {
     return { message: 'No active subscription', success: false };
   }
 

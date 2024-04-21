@@ -8,6 +8,10 @@ import logger from '../utils/logger.js';
 export const createReport = async (report) => {
   report.post = await PostService.getPostById(report.postId);
 
+  if (report.post.user.toString() === report.user._id.toString()) {
+    throw new Error('Cannot report your own post');
+  }
+
   if (!report.post) {
     throw new Error('Post not found');
   }
@@ -89,12 +93,6 @@ export const getAllReports = async (query = {}) => {
     logger.error(error);
     return [];
   }
-
-  if (!res) {
-    throw new Error('Reports not found');
-  }
-
-  return res;
 };
 
 export const getReportById = async (id) => {

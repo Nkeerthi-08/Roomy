@@ -75,7 +75,30 @@ export const getUserContext = async (req, res) => {
 export const getAllUsers = async (req, res) => {
   try {
     const queryParams = req.query;
-    const response = await UserService.getAllUsers(queryParams);
+
+    const filteredQuery = {};
+
+    for (const params in queryParams) {
+      if (
+        Object.hasOwnProperty.call(queryParams, params) &&
+        queryParams[params] &&
+        queryParams[params] !== ''
+      ) {
+        const element = queryParams[params];
+        filteredQuery[params] = element;
+      }
+    }
+
+    if (filteredQuery.email) {
+      filteredQuery.email = { $regex: filteredQuery.email, $options: 'i' };
+    }
+
+    // name contains query
+    if (filteredQuery.name) {
+      filteredQuery.name = { $regex: filteredQuery.name, $options: 'i' };
+    }
+
+    const response = await UserService.getAllUsers(filteredQuery);
     setResponse(res, response);
   } catch (error) {
     setResponseWithError(res, error);

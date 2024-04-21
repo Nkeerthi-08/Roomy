@@ -3,6 +3,16 @@ import type { ColorSystemOptions } from '@mui/material/styles';
 import { california, kepple, neonBlue, nevada, redOrange, shakespeare, stormGrey } from './colors';
 import type { ColorScheme } from './types';
 
+export const statusColors = {
+  pending: 'warning',
+  approved: 'primary',
+  rejected: 'secondary',
+  active: 'success',
+  inactive: 'error',
+  true: 'success',
+  false: 'error',
+};
+
 export const colorSchemes = {
   dark: {
     palette: {
