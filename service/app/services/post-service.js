@@ -39,7 +39,7 @@ export const getUserPosts = async (userId) => {
   return res;
 };
 
-export const getAllPosts = async (query) => {
+export const getAllPosts = async (query = {}) => {
   if (query.userEmail) {
     const user = await User.findOne({ email: query.userEmail });
     if (!user) {
