@@ -8,6 +8,10 @@ import logger from '../utils/logger.js';
 export const createReport = async (report) => {
   report.post = await PostService.getPostById(report.postId);
 
+  if (report.post.user.toString() === report.user._id.toString()) {
+    throw new Error('Cannot report your own post');
+  }
+
   if (!report.post) {
     throw new Error('Post not found');
   }

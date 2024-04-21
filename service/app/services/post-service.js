@@ -139,11 +139,13 @@ export const approvePost = async (id, approvedBy) => {
     throw new Error('Post not approved');
   }
 
+  const user = await User.findById(post.user);
+
   sendEmail(
-    [post.user.email],
+    [user.email],
     'Post Approved',
     'Your post has been approved',
-    renderPostApprovalEmail(post.user.name, post.title)
+    renderPostApprovalEmail(user.name, post.title)
   );
 
   return { message: 'Post approved', success: true };
