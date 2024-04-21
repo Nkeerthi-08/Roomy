@@ -51,8 +51,8 @@ export const createSubscription = async (req, res) => {
   // Now create the Stripe checkout session with the customer ID
   const session = await createCheckoutSession(
     customer,
-    'http://localhost:3000',
-    'http://localhost:3000/testpage',
+    'http://localhost:4000?success=true',
+    'http://localhost:4000?success=false',
     [
       {
         price_data: {
