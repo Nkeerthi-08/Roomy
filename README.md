@@ -3,6 +3,23 @@
 
 **Roomy**
 
+## Quick start
+
+- Clone the repo
+- Make sure your Node.js and npm versions are up to date
+- Start the Node.js server: `cd service && npm i && npm run start`
+  - The server needs .env file
+- Start the Admin Panel: `cd admin-portal && npm i && npm run dev -- -p 8080`
+- Start the User Client: `cd roomy-client && npm i && npm run dev -- -p 4000`
+
+## File Structure
+- `service/` contains the backend server
+  - `Node.js/Express.js/MongoDB`
+- `admin-portal/` contains the admin portal
+  - `Next.js/React.js`
+- `roomy-client/` contains the user client
+  - `Next.js/React.js`
+
 
 Project Overview -
 
