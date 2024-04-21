@@ -32,12 +32,17 @@ export const login = async (req, res) => {
 export const update = async (req, res) => {
   try {
     const user = req.user;
-    const { name, email, password } = req.body;
+    const { name, email, password, street, city, state, zip, phone } = req.body;
 
     const response = await UserService.update(user, {
       name,
       email,
       password,
+      street,
+      city,
+      state,
+      zip,
+      phone,
     });
 
     setResponse(res, response);
