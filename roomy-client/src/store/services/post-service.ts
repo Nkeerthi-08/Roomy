@@ -32,12 +32,13 @@ const AUTH_TOKEN =
 
 export const postApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
-    getPosts: build.query<CompletePostDetails[], void>({
-      query: () => ({
-        url: "/posts/all-posts",
+    getPosts: build.query<CompletePostDetails[], any>({
+      query: ({ bathCount }) => ({
+        url: `/posts`,
         headers: {
           Authorization: AUTH_TOKEN,
         },
+        params: { bathCount },
       }),
       transformResponse: (response: any) => {
         return response.map((post: any) => ({
@@ -106,7 +107,7 @@ export const postApi = apiSlice.injectEndpoints({
 
 export const { useCreatePostMutation, useGetPostsQuery, useGetPostByIdQuery } = postApi;
 
-export const selectPostsResult = postApi.endpoints.getPosts.select();
+export const selectPostsResult = postApi.endpoints.getPosts.select({ bathCount: 0 });
 export const selectTomTomData = createSelector(selectPostsResult, (postsResult) => {
   const { data, ...rest } = postsResult;
   const extractedData = data?.map((post) => ({

@@ -52,7 +52,7 @@ export const createSubscription = async (req, res) => {
   const session = await createCheckoutSession(
     customer,
     'http://localhost:3000',
-    'http://localhost:3000',
+    'http://localhost:3000/testpage',
     [
       {
         price_data: {

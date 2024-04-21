@@ -72,7 +72,7 @@ export default function TomTomMap() {
       });
 
       map.current.flyTo({
-        center: [addressData.data[32].longitude, addressData.data[32].latitute],
+        center: [addressData.data[10].longitude, addressData.data[10].latitute],
         zoom: 5,
         essential: true,
       });

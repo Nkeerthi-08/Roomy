@@ -1,6 +1,8 @@
 import stripe from 'stripe';
 import logger from './logger.js';
-const stripeClient = new stripe(process.env.STRIPE_SECRET_KEY);
+const stripeClient = new stripe(
+  'sk_test_51P4y96IvqvtAvGHOaP1BkE6UcDHvSOUKCt8Cc70If3xRvVe7zijtIccNXe0LNuOqoy6R1xAXceUuqcNk28jg4vDy00tHJLIlTf'
+);
 
 export const getStripeCustomerByEmail = async (email) => {
   try {
