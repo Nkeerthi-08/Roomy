@@ -1,6 +1,6 @@
 import { BlobServiceClient } from '@azure/storage-blob';
 import { EmailClient } from '@azure/communication-email';
-import logger from './logger';
+import logger from './logger.js';
 
 /**
  * Uploads photos to Azure Blob Storage.
