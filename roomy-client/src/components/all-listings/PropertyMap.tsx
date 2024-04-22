@@ -1,3 +1,5 @@
+"use client"
+
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import mapboxgl from "mapbox-gl";
 import { useEffect, useRef } from "react";

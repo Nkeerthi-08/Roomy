@@ -1,3 +1,5 @@
+"use client"
+
 import { use, useEffect, useState } from "react";
 import { SearchResult } from "./SearchResult";
 import { Address } from "@/store/services/address-service";

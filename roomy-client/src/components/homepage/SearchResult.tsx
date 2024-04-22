@@ -1,3 +1,5 @@
+"use client"
+
 import { Address } from "@/store/services/address-service";
 import "./css/SearchResult.css";
 import { useDispatch } from "react-redux";

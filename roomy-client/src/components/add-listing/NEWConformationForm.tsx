@@ -1,3 +1,5 @@
+"use client"
+
 import { resetSlice, setStep } from "@/store/slices/addListing-slice";
 import { useAppSelector } from "@/store/store";
 import { useDispatch } from "react-redux";
