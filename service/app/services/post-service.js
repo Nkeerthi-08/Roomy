@@ -6,6 +6,7 @@ import {
 } from '../templates/post-templates.js';
 import { sendEmail, uploadPhotos } from '../utils/azureUtils.js';
 import User from '../models/user.js';
+import * as ReportService from './report-service.js';
 
 /**
  * Creates a new post.
@@ -91,6 +92,10 @@ export const updatePost = async (id, updatedFields) => {
 
 export const deletePost = async (id) => {
   const res = await Post.deleteOne({ _id: id });
+
+  // delete associated reports
+  const reports = await ReportService.getPostReports(id);
+  await ReportService.deleteReports(reports.map((report) => report._id));
 
   if (!res) {
     throw new Error('Post not deleted');
