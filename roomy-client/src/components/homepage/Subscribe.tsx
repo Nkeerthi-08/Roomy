@@ -5,7 +5,7 @@ import { useCreateCheckoutSessionMutation } from "@/store/services/stripe-servic
 import { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
- 
+
 export default function Subscribe() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -16,7 +16,6 @@ export default function Subscribe() {
   function handlePayment() {
     createCheckoutSession();
   }
-  const initialized = useRef(false);
   useEffect(() => {
     if (isError) {
       if (error && "status" in error && error.status === 409) {
@@ -40,7 +39,7 @@ export default function Subscribe() {
       router.push("/");
     }
   }, [isError, data, isSuccess, isPaymentSuccess]);
- 
+
   return (
     <>
       <Toaster></Toaster>

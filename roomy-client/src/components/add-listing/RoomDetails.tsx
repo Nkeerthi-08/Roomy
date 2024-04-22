@@ -1,3 +1,5 @@
+"use client"
+
 import { setRoomDetails, setStep } from "@/store/slices/addListing-slice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "@/store/store";
