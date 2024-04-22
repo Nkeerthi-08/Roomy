@@ -115,7 +115,23 @@ export const getPostById = async (req, res) => {
 export const updatePost = async (req, res) => {
   try {
     const id = req.params.id;
-    const updatedFields = req.body;
+
+    const updatedFields = {};
+    const allowedFields = [
+      'startDateRange',
+      'endDateRange',
+      'price',
+      'bedCount',
+      'bathCount',
+      'numberOfSpots',
+    ];
+
+    allowedFields.forEach((field) => {
+      if (req.body[field]) {
+        updatedFields[field] = req.body[field];
+      }
+    });
+
     const response = await PostService.updatePost(id, updatedFields);
     setResponse(res, response);
   } catch (error) {
