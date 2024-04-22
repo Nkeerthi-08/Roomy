@@ -1,3 +1,5 @@
+"use client"
+
 import { resetSlice, setStep } from "@/store/slices/addListing-slice";
 import { useAppSelector } from "@/store/store";
 import { useDispatch } from "react-redux";
@@ -28,7 +30,7 @@ export default function NEWConformationForm() {
       dispatch(resetSlice());
       setTimeout(() => {
         router.push("/");
-      }, 3000);
+      }, 2000);
     }
   }, [isPostError, postLoading]);
 

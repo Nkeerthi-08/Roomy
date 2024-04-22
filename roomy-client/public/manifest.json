@@ -4,8 +4,8 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Roomy Admin",
-    "short_name": "room-admin",
+    "name": "Roomy",
+    "short_name": "room",
     "icons": [
         {
             "src": "/icon-192x192.png",
@@ -28,5 +28,5 @@
             "type": "image/png"
         }
     ],
-    "description": "roomy-admin-portal"
+    "description": "roomy"
 }

@@ -1,3 +1,5 @@
+"use client"
+
 import { useAppSelector } from "@/store/store";
 import { Button } from "../ui/button";
 import { useDispatch } from "react-redux";

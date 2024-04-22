@@ -1,3 +1,5 @@
+"use client"
+
 import { CardTitle, CardDescription, CardHeader, CardContent, Card } from "@/components/ui/card";
 import {
   ClipboardIcon,

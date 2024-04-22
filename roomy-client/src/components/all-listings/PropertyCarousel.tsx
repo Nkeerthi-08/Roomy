@@ -1,3 +1,5 @@
+"use client"
+
 import { CarouselItem, CarouselContent, CarouselPrevious, CarouselNext, Carousel } from "@/components/ui/carousel";
 import { ChevronLeftIcon, ChevronRightIcon } from "../ui/icon";
 
