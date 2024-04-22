@@ -6,12 +6,14 @@ import { apiSlice } from "./baseApiSlice";
 import { authApi } from "./services/auth";
 import productSlice from "./slices/productList-slice";
 import addListingSlice from "./slices/addListing-slice";
+import postFilterSlice from "./slices/postFilter-slice";
 
 export const store = configureStore({
   reducer: {
     authSlice,
     productSlice,
     addListingSlice,
+    postFilterSlice,
     [authApi.reducerPath]: authApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),

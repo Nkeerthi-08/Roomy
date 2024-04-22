@@ -1,20 +1,10 @@
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectItem,
-  SelectContent,
-  Select,
-} from "@/components/ui/select";
+import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CardContent, Card } from "@/components/ui/card";
-import {
-  CardTitle,
-  CardDescription,
-  CardHeader,
-  CardFooter,
-} from "@/components/ui/card";
+import { CardTitle, CardDescription, CardHeader, CardFooter } from "@/components/ui/card";
 import Link from "next/link";
+import Subscribe from "@/components/homepage/Subscribe";
 
 export default function Component() {
   return (
@@ -22,12 +12,8 @@ export default function Component() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-28">
         <div className="grid grid-cols-2 gap-8">
           <div className="text-center py-16 md:py-24">
-            <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">
-              Rooms for Rent
-            </h1>
-            <p className="mt-4 text-xl text-gray-500">
-              Find and rent your perfect room
-            </p>
+            <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">Rooms for Rent</h1>
+            <p className="mt-4 text-xl text-gray-500">Find and rent your perfect room</p>
             <div className="mt-8 flex justify-center">
               <div className="w-full max-w-md">
                 <Select>
@@ -40,15 +26,9 @@ export default function Component() {
                     <ChevronDownIcon className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="address1">
-                      123 Fake St, Springfield
-                    </SelectItem>
-                    <SelectItem value="address2">
-                      456 Elm St, Shelbyville
-                    </SelectItem>
-                    <SelectItem value="address3">
-                      789 Oak St, Capital City
-                    </SelectItem>
+                    <SelectItem value="address1">123 Fake St, Springfield</SelectItem>
+                    <SelectItem value="address2">456 Elm St, Shelbyville</SelectItem>
+                    <SelectItem value="address3">789 Oak St, Capital City</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -94,9 +74,7 @@ export default function Component() {
               <h2 className="text-lg font-semibold">List a place</h2>
             </div>
             <Link href="/add-listing">
-              <Button className="mt-4 text-lg font-semibold border rounded-lg">
-                List a place
-              </Button>
+              <Button className="mt-4 text-lg font-semibold border rounded-lg">List a place</Button>
             </Link>
           </CardContent>
         </Card>
@@ -131,64 +109,12 @@ export default function Component() {
               <h2 className="text-lg font-semibold">Find a place</h2>
             </div>
             <Link href="/all-listings">
-              <Button className="mt-4 text-lg font-semibold border rounded-lg">
-                Find a place
-              </Button>
+              <Button className="mt-4 text-lg font-semibold border rounded-lg">Find a place</Button>
             </Link>
           </CardContent>
         </Card>
       </div>
-      <div className="bg-[#5c4cda] flex items-center justify-center min-h-screen p-8 text-white">
-        <div className="grid gap-8 md:grid-cols-3">
-          <div>
-            <h1 className="text-4xl font-bold">Let's get started</h1>
-            <p className="mt-4 text-lg">
-              We believe security should be accessible to every company, no
-              matter the size.
-            </p>
-          </div>
-          <Card className="bg-white text-gray-900">
-            <CardHeader>
-              <CardTitle className="text-4xl font-bold">STARTUP</CardTitle>
-              <CardDescription className="text-6xl font-extrabold">
-                $199
-              </CardDescription>
-              <p className="mt-2 text-gray-600">per month</p>
-            </CardHeader>
-            <CardContent>
-              <ul className="pl-6 list-disc space-y-2 text-lg text-gray-700">
-                <li>100GB of storage</li>
-                <li>Unlimited users</li>
-                <li>7 Day trial</li>
-              </ul>
-            </CardContent>
-            <CardFooter>
-              <Button className="w-full bg-[#5c4cda] text-white hover:bg-[#4b3fb8]">
-                Try Now
-              </Button>
-            </CardFooter>
-          </Card>
-          <Card className="bg-white text-gray-900">
-            <CardHeader>
-              <CardTitle className="text-4xl font-bold">PRO</CardTitle>
-              <CardDescription className="text-6xl font-extrabold">
-                Get a Quote
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ul className="pl-6 list-disc space-y-2 text-lg text-gray-700">
-                <li>Unlimited page views</li>
-                <li>Premium Support</li>
-              </ul>
-            </CardContent>
-            <CardFooter>
-              <Button className="w-full bg-[#5c4cda] text-white hover:bg-[#4b3fb8]">
-                Setup a Call
-              </Button>
-            </CardFooter>
-          </Card>
-        </div>
-      </div>
+      <Subscribe></Subscribe>
     </div>
 
     // adding subscribe section

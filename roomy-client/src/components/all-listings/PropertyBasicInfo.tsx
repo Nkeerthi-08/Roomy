@@ -15,6 +15,10 @@ import {
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { CreateReport } from "./CreateReport";
+import { useLazyGetActiveSubscriptionQuery } from "@/store/services/stripe-service";
+import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 export interface PropertyInfoProps {
   postId: string;
   title: string;
@@ -33,8 +37,31 @@ export interface PropertyInfoProps {
 }
 
 export default function ProertyBasicInfo({ basicInfo }: { basicInfo: PropertyInfoProps }) {
+  const router = useRouter();
+  const [getActiveSubscription, { data: subData, isLoading: subscriptionLoading, isError: subscriptionError }] =
+    useLazyGetActiveSubscriptionQuery();
+  const [randomValue, setRandomValue] = useState<number>(0);
+  function handleSubscription() {
+    getActiveSubscription();
+    setRandomValue(Math.random());
+  }
+  useEffect(() => {
+    if (subscriptionError) {
+      toast.error("An error occurred. Please try again.");
+    }
+    if (subData) {
+      if (subData?.active) {
+        router.push(`https://wa.me/${basicInfo.phoneNumber}`);
+      }
+      if (!subData?.active) {
+        router.push("/#scrollsub");
+        toast.error("You do not have an active subscription.");
+      }
+    }
+  }, [subData, subscriptionError, randomValue]);
   return (
     <>
+      <Toaster></Toaster>
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 md:p-6">
         <Card className="w-full border-2">
           <CardHeader>
@@ -116,12 +143,12 @@ export default function ProertyBasicInfo({ basicInfo }: { basicInfo: PropertyInf
       </section>
       <Card className="border-2 p-4 md:p-6 ml-6 mr-6">
         <CardContent className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
-          <Link href={`https://wa.me/${basicInfo.phoneNumber}`} target="_blank" rel="noopener noreferrer">
-            <Button size="lg">
-              <PhoneIcon className="h-5 w-5 mr-2" />
-              Contact Now
-            </Button>
-          </Link>
+          {/* <Link href={`https://wa.me/${basicInfo.phoneNumber}`} target="_blank" rel="noopener noreferrer"> */}
+          <Button onClick={handleSubscription} size="lg">
+            <PhoneIcon className="h-5 w-5 mr-2" />
+            Contact Now
+          </Button>
+          {/* </Link> */}
 
           <div className="flex gap-2">
             <Button size="sm" variant="outline">

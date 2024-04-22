@@ -1,10 +1,9 @@
 "use client";
-import { selectTomTomData, useGetPostsQuery } from "@/store/services/post-service";
-import { use, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { get } from "http";
+import { useGetPostsQuery } from "@/store/services/post-service";
 import { PropertyCard } from "./PropertyCard";
-import Link from "next/link";
+import { useAppSelector } from "@/store/store";
+import { useEffect } from "react";
+import { FilterInitialState } from "@/store/slices/postFilter-slice";
 
 const PropertyCardSkeleton = () => (
   <div className="animate-pulse bg-gray-200 rounded-xl p-4">
@@ -16,23 +15,35 @@ const PropertyCardSkeleton = () => (
 const ErrorComponent = ({ message }: { message: string }) => <div className="text-red-500">{message}</div>;
 
 export function PropertyCardList() {
-  const bathCount = 3;
+  const bedCount = useAppSelector((state) => state.postFilterSlice.bedCount);
+  const bathCount = useAppSelector((state) => state.postFilterSlice.bathCount);
+  const city = useAppSelector((state) => state.postFilterSlice.city);
+  const priceMax = useAppSelector((state) => state.postFilterSlice.priceMax);
+  const priceMin = useAppSelector((state) => state.postFilterSlice.priceMin);
+  const startDateRange = useAppSelector((state) => state.postFilterSlice.startDateRange);
+  const filterDetails: FilterInitialState = {
+    bedCount,
+    bathCount,
+    city,
+    priceMax,
+    priceMin,
+    startDateRange,
+  };
   const {
     data: posts,
     isLoading: postsLoading,
-    isFetching: postsFetching,
     error: postsError,
-  } = useGetPostsQuery(
-    { bathCount: bathCount },
-    {
-      refetchOnMountOrArgChange: true,
-    }
-  );
-  const addressData = useSelector(selectTomTomData);
+  } = useGetPostsQuery(filterDetails, {
+    refetchOnMountOrArgChange: true,
+  });
+
   useEffect(() => {
-    console.log(addressData, "addressData");
-    console.log(posts, "posts from property card list");
-  }, [postsLoading]);
+    console.log(bedCount, "bedCount from PropertyCardList");
+  }, [bedCount]);
+
+  useEffect(() => {
+    console.log(posts, "posts");
+  }, [posts]);
 
   if (postsLoading && !posts) {
     return (

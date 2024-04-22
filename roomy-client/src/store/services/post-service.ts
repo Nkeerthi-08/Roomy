@@ -1,6 +1,8 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { apiSlice } from "../baseApiSlice";
 import { TomTomDetailsPopup } from "./address-service";
+import { FilterInitialState } from "../slices/postFilter-slice";
+import { RootState, useAppSelector } from "../store";
 
 export interface Post {
   title: string;
@@ -32,15 +34,23 @@ const AUTH_TOKEN =
 
 export const postApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
-    getPosts: build.query<CompletePostDetails[], any>({
-      query: ({ bathCount }) => ({
-        url: `/posts`,
+    getPosts: build.query<CompletePostDetails[], FilterInitialState>({
+      query: (filterDetails) => ({
+        url: "/posts",
         headers: {
           Authorization: AUTH_TOKEN,
         },
-        params: { bathCount },
+        params: {
+          city: filterDetails.city,
+          bathCount: filterDetails.bathCount,
+          bedCount: filterDetails.bedCount,
+          priceMax: filterDetails.priceMax,
+          priceMin: filterDetails.priceMin,
+          startDateRange: filterDetails.startDateRange,
+        },
       }),
       transformResponse: (response: any) => {
+        const data = "data";
         return response.map((post: any) => ({
           _id: post._id,
           title: post.title,
@@ -106,18 +116,3 @@ export const postApi = apiSlice.injectEndpoints({
 });
 
 export const { useCreatePostMutation, useGetPostsQuery, useGetPostByIdQuery } = postApi;
-
-export const selectPostsResult = postApi.endpoints.getPosts.select({ bathCount: 0 });
-export const selectTomTomData = createSelector(selectPostsResult, (postsResult) => {
-  const { data, ...rest } = postsResult;
-  const extractedData = data?.map((post) => ({
-    key: post._id,
-    title: post.title,
-    description: `${post.bedCount || 0} bedrooms, ${post.bathCount || 0} baths`,
-    price: post.price?.toString() || "0",
-    imageSrc: post.photos[0]?.url || "/next.svg",
-    latitute: post.latitude || 0,
-    longitude: post.longitude || 0,
-  })) as TomTomDetailsPopup[];
-  return { ...rest, data: extractedData };
-});
