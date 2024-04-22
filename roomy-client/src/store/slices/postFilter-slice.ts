@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+ 
 export interface FilterInitialState {
   priceMax: number;
   priceMin: number;
@@ -16,7 +16,7 @@ const initialState: FilterInitialState = {
   bedCount: 0,
   city: "",
 };
-
+ 
 const postFilterSlice = createSlice({
   name: "postFilter",
   initialState,
@@ -49,7 +49,7 @@ const postFilterSlice = createSlice({
     },
   },
 });
-
+ 
 export const { setPriceMax, setPriceMin, setStartDateRange, setBathCount, setBedCount, setAllValues } =
   postFilterSlice.actions;
 export default postFilterSlice.reducer;

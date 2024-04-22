@@ -34,13 +34,23 @@ export default function Component() {
               </div>
             </div>
           </div>
-          <img
-            src="https://cdn-assets.roomster.com/dist/65a6ebfefa0cf4b3afe8346a5d4d8fac.svg"
-            alt="Placeholder"
-            className="w-full h-auto"
-            style={{ maxWidth: "100%", height: "auto", maxHeight: "350px" }}
-          />
+          {/* Column layout for medium and large devices */}
+          <div className="hidden md:block md:col-span-6">
+            <img
+              src="https://cdn-assets.roomster.com/dist/65a6ebfefa0cf4b3afe8346a5d4d8fac.svg"
+              alt="Placeholder"
+              className="w-full h-auto"
+              style={{ maxWidth: "100%", height: "auto", maxHeight: "350px" }}
+            />
+          </div>
         </div>
+        {/* Full-width image for small devices */}
+        <img
+          src="https://cdn-assets.roomster.com/dist/65a6ebfefa0cf4b3afe8346a5d4d8fac.svg"
+          alt="Placeholder"
+          className="block md:hidden w-full h-auto"
+          style={{ maxWidth: "100%", height: "auto" }}
+        />
       </div>
       <div className="grid grid-cols-2 gap-8 px-4 sm:px-6 lg:px-8 pb-16 md:pb-24 mt-40">
         <Card>

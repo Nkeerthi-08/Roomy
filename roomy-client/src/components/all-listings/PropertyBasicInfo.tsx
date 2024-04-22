@@ -35,7 +35,7 @@ export interface PropertyInfoProps {
   utilities: string[];
   phoneNumber: string;
 }
-
+ 
 export default function ProertyBasicInfo({ basicInfo }: { basicInfo: PropertyInfoProps }) {
   const router = useRouter();
   const [getActiveSubscription, { data: subData, isLoading: subscriptionLoading, isError: subscriptionError }] =
@@ -149,7 +149,7 @@ export default function ProertyBasicInfo({ basicInfo }: { basicInfo: PropertyInf
             Contact Now
           </Button>
           {/* </Link> */}
-
+ 
           <div className="flex gap-2">
             <Button size="sm" variant="outline">
               <ShareIcon className="h-4 w-4 mr-2" />

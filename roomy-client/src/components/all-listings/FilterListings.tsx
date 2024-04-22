@@ -1,5 +1,5 @@
 "use client";
-
+  
 import { Input } from "@/components/ui/input";
 import { FilterIcon, SearchIcon } from "lucide-react";
 import Link from "next/link";
@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { useDispatch } from "react-redux";
 import { setAllValues, setBedCount, setPriceMax, setPriceMin } from "@/store/slices/postFilter-slice";
-
+ 
 export default function FilterListings() {
   const [date, setDate] = useState<Date>();
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ export default function FilterListings() {
     bedCount: 0,
     city: "",
   });
-
+ 
   function handleDateChange(date: Date) {
     setDate(date);
     const year = date.getFullYear();
@@ -46,7 +46,7 @@ export default function FilterListings() {
       startDateRange: formattedDate,
     }));
   }
-
+ 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     const parsedValue = isNaN(parseInt(value, 10)) ? 0 : parseInt(value, 10);
@@ -55,13 +55,13 @@ export default function FilterListings() {
       [name]: name === "priceMax" || name === "priceMin" ? parsedValue : value,
     }));
   };
-
+ 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
     console.log("Form data:", formData);
     dispatch(setAllValues(formData));
   };
-
+ 
   return (
     <>
       <section className="bg-white dark:bg-gray-950 p-4 md:p-6">
@@ -110,7 +110,7 @@ export default function FilterListings() {
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="bedrooms">Bedrooms</Label>
-
+ 
                     <Select
                       onValueChange={(value: any) => {
                         setFormData((prevFormData) => ({
