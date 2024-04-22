@@ -44,7 +44,7 @@ export function AccountDetailsForm(): React.JSX.Element {
   const [profileUpdatedSuccess, setProfileUpdatedSuccess] = React.useState<boolean>(false);
   const [showPassword, setShowPassword] = React.useState<boolean>();
 
-  const { user } = useUser();
+  const { user }: { user: any } = useUser();
   const {
     control,
     handleSubmit,
@@ -90,7 +90,7 @@ export function AccountDetailsForm(): React.JSX.Element {
             <Stack spacing={1} sx={{ textAlign: 'center' }}>
               <Typography variant="h5">{user?.name}</Typography>
               <Typography color="text.secondary" variant="body2">
-                {userData.coutry}
+                {userData.country}
               </Typography>
               <Typography color="text.secondary" variant="body2">
                 {Intl.DateTimeFormat().resolvedOptions().timeZone}

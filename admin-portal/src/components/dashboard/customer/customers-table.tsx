@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Chip } from '@mui/material';
+import { Chip, ChipProps } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -16,6 +16,7 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import dayjs from 'dayjs';
 
+import { User } from '@/types/user';
 import { makeRequest } from '@/lib/services/base-api';
 import { statusColors } from '@/styles/theme/color-schemes';
 
@@ -46,7 +47,7 @@ export function CustomersTable(): React.JSX.Element {
   const [count, setCount] = React.useState(0);
 
   const fetchCustomers = async () => {
-    const res = await makeRequest('users', {}, 'GET');
+    const res: Customer[] = await makeRequest('users', {}, 'GET');
     setCustomers(res);
     setCount(res.length); // Update the count with the total number of customers
   };
@@ -70,8 +71,8 @@ export function CustomersTable(): React.JSX.Element {
     setPage(0);
   };
 
-  const searchCustomers = async ({ searchQuery, searchCriteria }) => {
-    const res = await makeRequest('users', { [searchCriteria]: searchQuery }, 'GET');
+  const searchCustomers = async ({ searchQuery, searchCriteria }: { searchQuery: string; searchCriteria: string }) => {
+    const res: Customer[] = await makeRequest('users', { [searchCriteria]: searchQuery }, 'GET');
     setCustomers(res);
     setCount(res.length); // Update the count with the total number of customers
   };
@@ -109,7 +110,7 @@ export function CustomersTable(): React.JSX.Element {
                     <TableCell>{row.numberOfPosts}</TableCell>
                     <TableCell>
                       <Chip
-                        color={statusColors[row.subscriptionStatus as keyof typeof statusColors]}
+                        color={statusColors[row.subscriptionStatus as keyof typeof statusColors] as ChipProps['color']}
                         label={row.subscriptionStatus === 'active' ? 'Active' : 'Inactive'}
                       />
                     </TableCell>

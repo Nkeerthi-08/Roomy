@@ -1,7 +1,7 @@
 import 'react-image-gallery/styles/css/image-gallery.css';
 
 import * as React from 'react';
-import { Chip, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Chip, ChipProps, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -129,7 +129,7 @@ export default function PostModal({
                   Active:
                   {
                     <Chip
-                      color={statusColors[selectedPost.active ? 'active' : 'inactive']}
+                      color={statusColors[selectedPost.active ? 'active' : 'inactive'] as ChipProps['color']}
                       label={selectedPost.active ? 'Yes' : 'No'}
                       size="small"
                     />
@@ -139,7 +139,7 @@ export default function PostModal({
                   Approved:
                   {
                     <Chip
-                      color={statusColors[selectedPost.approved ? 'approved' : 'pending']}
+                      color={statusColors[selectedPost.approved ? 'approved' : 'pending'] as ChipProps['color']}
                       label={selectedPost.approved ? 'Yes' : 'No'}
                       size="small"
                     />
@@ -171,17 +171,7 @@ export default function PostModal({
               >
                 <Image size={24} style={{ marginRight: '8px' }} /> Photos
               </Typography>
-              <ImageGallery
-                items={images}
-                showThumbnails
-                showFullscreenButton
-                showPlayButton={false}
-                styles={{
-                  containerStyle: {
-                    borderRadius: '8px', // Round the corners of the image gallery container
-                  },
-                }}
-              />
+              <ImageGallery items={images} showThumbnails showFullscreenButton showPlayButton={false} />
             </CardContent>
           </Card>
         )}
