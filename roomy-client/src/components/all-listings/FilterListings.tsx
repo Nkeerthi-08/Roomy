@@ -1,16 +1,8 @@
 "use client";
-  
+
 import { Input } from "@/components/ui/input";
 import { FilterIcon, SearchIcon } from "lucide-react";
-import Link from "next/link";
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
-import {
-  DropdownMenuTrigger,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuContent,
-  DropdownMenu,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenuTrigger, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select";
@@ -21,8 +13,9 @@ import { CalendarIcon } from "../ui/icon";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { useDispatch } from "react-redux";
-import { setAllValues, setBedCount, setPriceMax, setPriceMin } from "@/store/slices/postFilter-slice";
- 
+import { setAllValues } from "@/store/slices/postFilter-slice";
+import AddressSearch from "../homepage/AddressSearch";
+
 export default function FilterListings() {
   const [date, setDate] = useState<Date>();
   const dispatch = useDispatch();
@@ -34,7 +27,7 @@ export default function FilterListings() {
     bedCount: 0,
     city: "",
   });
- 
+
   function handleDateChange(date: Date) {
     setDate(date);
     const year = date.getFullYear();
@@ -46,7 +39,7 @@ export default function FilterListings() {
       startDateRange: formattedDate,
     }));
   }
- 
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     const parsedValue = isNaN(parseInt(value, 10)) ? 0 : parseInt(value, 10);
@@ -55,13 +48,13 @@ export default function FilterListings() {
       [name]: name === "priceMax" || name === "priceMin" ? parsedValue : value,
     }));
   };
- 
+
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
     console.log("Form data:", formData);
     dispatch(setAllValues(formData));
   };
- 
+
   return (
     <>
       <section className="bg-white dark:bg-gray-950 p-4 md:p-6">
@@ -69,14 +62,15 @@ export default function FilterListings() {
           <form onSubmit={handleFormSubmit}>
             <div className="flex items-center gap-2">
               <div className="relative flex-1">
-                <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
+                {/* <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
                 <Input
                   className="pl-8 w-full"
                   placeholder="Search properties..."
                   type="search"
                   name="search"
                   onChange={handleInputChange}
-                />
+                /> */}
+                <AddressSearch></AddressSearch>
               </div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -110,7 +104,7 @@ export default function FilterListings() {
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="bedrooms">Bedrooms</Label>
- 
+
                     <Select
                       onValueChange={(value: any) => {
                         setFormData((prevFormData) => ({

@@ -113,6 +113,11 @@ const addListingSlice = createSlice({
       state.basicInfo.streetAddress = action.payload;
       saveState("addListingState", state);
     },
+    setCityName(state, action: PayloadAction<string>) {
+      state.basicInfo.streetAddress.city = action.payload;
+      console.log(state.basicInfo.streetAddress.city, "city name from slice");
+      // saveState("addListingState", state);
+    },
     resetSlice(_state) {
       removeState("addListingState");
       // return initialState;
@@ -133,6 +138,7 @@ export const {
   setFacilities,
   setLaundry,
   resetSlice,
+  setCityName
 } = addListingSlice.actions;
 
 export default addListingSlice.reducer;

@@ -1,8 +1,5 @@
 "use client";
 import { useGetMyPostsQuery, useGetPostsQuery } from "@/store/services/post-service";
-import { useAppSelector } from "@/store/store";
-import { useEffect } from "react";
-import { FilterInitialState } from "@/store/slices/postFilter-slice";
 import { PropertyCard } from "../all-listings/PropertyCard";
 
 const PropertyCardSkeleton = () => (

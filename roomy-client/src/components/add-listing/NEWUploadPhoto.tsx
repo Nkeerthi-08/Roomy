@@ -33,7 +33,7 @@ export default function NEWUploadPhoto() {
 
   return (
     <>
-      <div className="flex-1 min-w-0 mt-8 lg:mt-0">
+      <div className="flex-1 ml-5 min-w-0 mt-8 lg:mt-0">
         <div className="bg-white rounded-3xl shadow-lg p-8 max-w-md mx-auto lg:mx-0">
           <div className="flex flex-col space-y-4">
             <div>

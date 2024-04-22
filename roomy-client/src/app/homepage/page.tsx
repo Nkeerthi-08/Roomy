@@ -1,18 +1,14 @@
 "use client";
 
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectItem,
-  SelectContent,
-  Select,
-} from "@/components/ui/select";
+import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CardContent, Card } from "@/components/ui/card";
 import Link from "next/link";
 import Subscribe from "@/components/homepage/Subscribe";
 import Image from "next/image";
+import AddressSearch from "@/components/homepage/AddressSearch";
+
 
 export default function Component() {
   return (
@@ -22,35 +18,11 @@ export default function Component() {
           {/* Column layout for small devices */}
           <div className="col-span-12 md:col-span-6">
             <div className="text-center py-16 md:py-24">
-              <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">
-                Rooms for Rent
-              </h1>
-              <p className="mt-4 text-xl text-gray-500">
-                Find and rent your perfect room
-              </p>
+              <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">Rooms for Rent</h1>
+              <p className="mt-4 text-xl text-gray-500">Find and rent your perfect room</p>
               <div className="mt-8 flex justify-center">
                 <div className="w-full max-w-md">
-                  <Select>
-                    <SelectTrigger
-                      aria-label="Search for an address, neighborhood, city or ZIP code"
-                      className="w-full relative"
-                      id="address"
-                    >
-                      <SelectValue placeholder="Enter an address, neighborhood, city or ZIP code" />
-                      <ChevronDownIcon className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="address1">
-                        123 Fake St, Springfield
-                      </SelectItem>
-                      <SelectItem value="address2">
-                        456 Elm St, Shelbyville
-                      </SelectItem>
-                      <SelectItem value="address3">
-                        789 Oak St, Capital City
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <AddressSearch></AddressSearch>
                 </div>
               </div>
             </div>
@@ -105,9 +77,7 @@ export default function Component() {
               <h2 className="text-lg font-semibold">List a place</h2>
             </div>
             <Link href="/add-listing">
-              <Button className="mt-4 text-lg font-semibold border rounded-lg">
-                List a place
-              </Button>
+              <Button className="mt-4 text-lg font-semibold border rounded-lg">List a place</Button>
             </Link>
           </CardContent>
         </Card>
@@ -142,9 +112,7 @@ export default function Component() {
               <h2 className="text-lg font-semibold">Find a place</h2>
             </div>
             <Link href="/all-listings">
-              <Button className="mt-4 text-lg font-semibold border rounded-lg">
-                Find a place
-              </Button>
+              <Button className="mt-4 text-lg font-semibold border rounded-lg">Find a place</Button>
             </Link>
           </CardContent>
         </Card>
@@ -172,9 +140,7 @@ export default function Component() {
                   aria-expanded="true"
                   aria-controls="accordion-flush-body-1"
                   onClick={() => {
-                    const body = document.getElementById(
-                      "accordion-flush-body-1"
-                    );
+                    const body = document.getElementById("accordion-flush-body-1");
                     if (body) {
                       body.classList.toggle("hidden");
                     }
@@ -196,17 +162,12 @@ export default function Component() {
                   </svg>
                 </button>
               </h3>
-              <div
-                id="accordion-flush-body-1"
-                className=""
-                aria-labelledby="accordion-flush-heading-1"
-              >
+              <div id="accordion-flush-body-1" className="" aria-labelledby="accordion-flush-heading-1">
                 <div className="py-5 border-b border-gray-200 dark:border-gray-700">
                   <p className="mb-2 text-gray-500 dark:text-gray-400">
-                    Yes, you can post a listing for free. We offer a free plan
-                    that allows you to post a listing with basic information
-                    about the property. You can also upgrade to a paid plan to
-                    get more features.
+                    Yes, you can post a listing for free. We offer a free plan that allows you to post a listing
+                    with basic information about the property. You can also upgrade to a paid plan to get more
+                    features.
                   </p>
                 </div>
               </div>
@@ -218,9 +179,7 @@ export default function Component() {
                   aria-expanded="false"
                   aria-controls="accordion-flush-body-2"
                   onClick={() => {
-                    const body = document.getElementById(
-                      "accordion-flush-body-2"
-                    );
+                    const body = document.getElementById("accordion-flush-body-2");
                     if (body) {
                       body.classList.toggle("hidden");
                     }
@@ -242,27 +201,18 @@ export default function Component() {
                   </svg>
                 </button>
               </h3>
-              <div
-                id="accordion-flush-body-2"
-                className="hidden"
-                aria-labelledby="accordion-flush-heading-2"
-              >
+              <div id="accordion-flush-body-2" className="hidden" aria-labelledby="accordion-flush-heading-2">
                 <div className="py-5 border-b border-gray-200 dark:border-gray-700">
                   <p className="mb-2 text-gray-500 dark:text-gray-400">
-                    You need to create an account and be subscribed to a paid
-                    plan to contact the listing owner. Once you are subscribed,
-                    you can send a message to the owner through our platform.
+                    You need to create an account and be subscribed to a paid plan to contact the listing owner.
+                    Once you are subscribed, you can send a message to the owner through our platform.
                   </p>
                   <p className="text-gray-500 dark:text-gray-400">
                     Check out the{" "}
-                    <a
-                      href="#"
-                      className="text-purple-600 dark:text-purple-500 hover:underline"
-                    >
+                    <a href="#" className="text-purple-600 dark:text-purple-500 hover:underline">
                       Figma design system
                     </a>
-                    based on the utility classes from Tailwind CSS and
-                    components from Landwind.
+                    based on the utility classes from Tailwind CSS and components from Landwind.
                   </p>
                 </div>
               </div>
@@ -274,17 +224,13 @@ export default function Component() {
                   aria-expanded="false"
                   aria-controls="accordion-flush-body-3"
                   onClick={() => {
-                    const body = document.getElementById(
-                      "accordion-flush-body-3"
-                    );
+                    const body = document.getElementById("accordion-flush-body-3");
                     if (body) {
                       body.classList.toggle("hidden");
                     }
                   }}
                 >
-                  <span>
-                    Is there an enterprise version of Roomy available?
-                  </span>
+                  <span>Is there an enterprise version of Roomy available?</span>
                   <svg
                     data-accordion-icon=""
                     className="w-6 h-6 shrink-0"
@@ -300,17 +246,11 @@ export default function Component() {
                   </svg>
                 </button>
               </h3>
-              <div
-                id="accordion-flush-body-3"
-                className="hidden"
-                aria-labelledby="accordion-flush-heading-3"
-              >
+              <div id="accordion-flush-body-3" className="hidden" aria-labelledby="accordion-flush-heading-3">
                 <div className="py-5 border-b border-gray-200 dark:border-gray-700">
                   <p className="mb-2 text-gray-500 dark:text-gray-400">
-                    Yes, we offer an enterprise version of Roomy. This version
-                    includes additional features, such as custom branding,
-                    single sign-on, and dedicated support. Contact us for more
-                    information.
+                    Yes, we offer an enterprise version of Roomy. This version includes additional features, such
+                    as custom branding, single sign-on, and dedicated support. Contact us for more information.
                   </p>
                 </div>
               </div>
@@ -322,9 +262,7 @@ export default function Component() {
                   aria-expanded="false"
                   aria-controls="accordion-flush-body-4"
                   onClick={() => {
-                    const body = document.getElementById(
-                      "accordion-flush-body-4"
-                    );
+                    const body = document.getElementById("accordion-flush-body-4");
                     if (body) {
                       body.classList.toggle("hidden");
                     }
@@ -346,16 +284,11 @@ export default function Component() {
                   </svg>
                 </button>
               </h3>
-              <div
-                id="accordion-flush-body-4"
-                className="hidden"
-                aria-labelledby="accordion-flush-heading-4"
-              >
+              <div id="accordion-flush-body-4" className="hidden" aria-labelledby="accordion-flush-heading-4">
                 <div className="py-5 border-b border-gray-200 dark:border-gray-700">
                   <p className="mb-2 text-gray-500 dark:text-gray-400">
-                    Yes, users can upload photos of the property when creating a
-                    listing. We recommend uploading high-quality images to
-                    showcase the property to potential tenants.
+                    Yes, users can upload photos of the property when creating a listing. We recommend uploading
+                    high-quality images to showcase the property to potential tenants.
                   </p>
                 </div>
               </div>

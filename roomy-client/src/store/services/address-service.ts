@@ -27,7 +27,6 @@ export const addressApi = apiSlice.injectEndpoints({
         url: `https://api.tomtom.com/search/2/search/${value}.json?key=7wrfpEwSd7EWHdmBmVH6L46RvgsJ1n3V&countrySet=US&limit=5`,
       }),
       transformResponse: (responseData: any) => {
-        console.log("Transfoming Response", responseData);
         return responseData.results.map(
           (result: any): Address => ({
             streetAddress: `${result.address.freeformAddress || ""}`.trim(),

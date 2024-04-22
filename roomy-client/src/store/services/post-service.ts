@@ -25,7 +25,6 @@ interface CompletePostDetails extends Post {
   active: boolean;
   photos: Photo[];
 }
-
 interface UserPosts extends CompletePostDetails {
   approved: boolean;
 }
@@ -142,8 +141,25 @@ export const postApi = apiSlice.injectEndpoints({
           approved: post.approved,
         })) as UserPosts[];
       },
+      providesTags: ["Post"],
+    }),
+    deletePost: build.mutation<any, string>({
+      query: (id) => ({
+        url: `/posts/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: AUTH_TOKEN,
+        },
+      }),
+      invalidatesTags: ["Post"],
     }),
   }),
 });
 
-export const { useCreatePostMutation, useGetPostsQuery, useGetPostByIdQuery, useGetMyPostsQuery } = postApi;
+export const {
+  useCreatePostMutation,
+  useGetPostsQuery,
+  useGetPostByIdQuery,
+  useGetMyPostsQuery,
+  useDeletePostMutation,
+} = postApi;

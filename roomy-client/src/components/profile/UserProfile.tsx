@@ -5,24 +5,17 @@ import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  UpdateUserReq,
-  useGetUserQuery,
-  useUpdateUserMutation,
-} from "@/store/services/user-service";
-import { useEffect, useState } from "react";
+import { UpdateUserReq, useGetUserQuery, useUpdateUserMutation } from "@/store/services/user-service";
+import { use, useEffect, useState } from "react";
 import { useCreateCheckoutSessionMutation } from "@/store/services/stripe-service";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Profile() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const isPaymentSuccess = searchParams.get("success");
-  console.log(isPaymentSuccess, "isPaymentSuccess");
-  const [
-    createCheckoutSession,
-    { data, isLoading, isError, error, isSuccess },
-  ] = useCreateCheckoutSessionMutation();
+  const [createCheckoutSession, { data, isLoading, isError, error, isSuccess }] =
+    useCreateCheckoutSessionMutation();
   function handlePayment() {
     createCheckoutSession();
   }
@@ -30,10 +23,7 @@ export default function Profile() {
     if (isError) {
       if (error && "status" in error && error.status === 409) {
         toast.success("You already have an active subscription.");
-        window.open(
-          (error as { data: { redirectUrl: string } }).data.redirectUrl,
-          "_blank"
-        );
+        window.open((error as { data: { redirectUrl: string } }).data.redirectUrl, "_blank");
       } else {
         toast.error("An error occurred. Please try again.");
       }
@@ -53,22 +43,28 @@ export default function Profile() {
     }
   }, [isError, data, isSuccess, isPaymentSuccess, error, router]);
 
-  const {
-    data: userData,
-    isLoading: userLoading,
-    isError: isUserError,
-  } = useGetUserQuery();
+  const { data: userData, isLoading: userLoading, isError: isUserError } = useGetUserQuery();
   const [
     updateUser,
-    {
-      data: updatedUser,
-      error: updateError,
-      isLoading: updateLoading,
-      isSuccess: updateSuccess,
-    },
+    { data: updatedUser, error: updateError, isLoading: updateLoading, isSuccess: updateSuccess },
   ] = useUpdateUserMutation();
+
   const [phone, setPhone] = useState<string>("");
   const [name, setName] = useState<string>("");
+
+  useEffect(() => {
+    if (userData) {
+      setPhone(userData.phone || "");
+      setName(userData.name || "");
+    }
+    if (updateLoading) {
+      toast.loading("Loading...");
+    }
+    if (updatedUser) {
+      toast.dismiss();
+      toast.success("User updated successfully.");
+    }
+  }, [userData, updatedUser, updateLoading]);
   if (userLoading) {
     return <ProfileSkeleton />;
   }
@@ -81,72 +77,57 @@ export default function Profile() {
       phone: phone,
       name: name,
     };
+    console.log(updateUserDetails, "updateUserDetails");
     updateUser(updateUserDetails);
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">
-      <div className="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg space-y-6 my-12">
-        <div className="flex items-center justify-center">
-          <Avatar className="h-20 w-20">
-            <AvatarImage alt="User Avatar" src="/placeholder-avatar.jpg" />
-            <AvatarFallback>JD</AvatarFallback>
-          </Avatar>
-        </div>
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="space-y-1">
-              <Label htmlFor="name">Name</Label>
-              <div className="flex items-center gap-2">
-                <Input defaultValue={userData?.name} id="name" />
-                <Button
-                  className="bg-pink-500 hover:bg-pink-600 text-white"
-                  size="sm"
-                >
-                  Update
-                </Button>
+    <>
+      <Toaster></Toaster>
+      <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div className="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg space-y-6 my-12">
+          <div className="flex items-center justify-center">
+            <Avatar className="h-20 w-20">
+              <AvatarImage alt="User Avatar" src="/placeholder-avatar.jpg" />
+              <AvatarFallback>JD</AvatarFallback>
+            </Avatar>
+          </div>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <Label htmlFor="name">Name</Label>
+                <div className="flex items-center gap-2">
+                  <Input onChange={(e) => setName(e.target.value)} defaultValue={userData?.name} id="name" />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="space-y-1">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              onChange={(e) => setName(e.target.value)}
-              defaultValue={userData?.email}
-              disabled
-              id="email"
-            />
-          </div>
-          <div className="flex items-center justify-between">
             <div className="space-y-1">
-              <Label htmlFor="phone">Phone Number</Label>
-              <div className="flex items-center gap-2">
-                <Input
-                  defaultValue={userData?.phone || "888-888-8888"}
-                  id="phone"
-                />
-                <Button
-                  onClick={handleUpdateUser}
-                  className="bg-pink-500 hover:bg-pink-600 text-white"
-                  size="sm"
-                >
-                  Update
-                </Button>
+              <Label htmlFor="email">Email</Label>
+              <Input defaultValue={userData?.email} disabled id="email" />
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <Label htmlFor="phone">Phone Number</Label>
+                <div className="flex items-center gap-2">
+                  <Input onChange={(e) => setPhone(e.target.value)} defaultValue={userData?.phone} id="phone" />
+                  <Button
+                    onClick={handleUpdateUser}
+                    className="bg-pink-500 hover:bg-pink-600 text-white"
+                    size="sm"
+                  >
+                    {updateLoading ? "Updating..." : "Update"}
+                  </Button>
+                </div>
               </div>
             </div>
+            <Button className="bg-pink-500 hover:bg-pink-600 text-white w-full" onClick={handlePayment}>
+              Manage Subscription Plans
+            </Button>
+            <Button className="bg-pink-500 hover:bg-pink-600 text-white w-full">Logout</Button>
           </div>
-          <Button
-            className="bg-pink-500 hover:bg-pink-600 text-white w-full"
-            onClick={handlePayment}
-          >
-            Manage Subscription Plans
-          </Button>
-          <Button className="bg-pink-500 hover:bg-pink-600 text-white w-full">
-            Logout
-          </Button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

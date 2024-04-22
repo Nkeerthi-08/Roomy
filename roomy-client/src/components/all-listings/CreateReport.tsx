@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Dialog,
@@ -40,8 +40,10 @@ export function CreateReport(props: CreateReportProps) {
 
   useEffect(() => {
     if (reportError) {
-      if ("data" in reportError && reportError.data && typeof reportError.data === "object") {
-        toast.error((reportError.data as { message: unknown })?.message?.toString() || "An error occurred.");
+      console.log(reportError, "reportError");
+      if ("data" in reportError) {
+        console.log((reportError.data as { message: unknown })?.message?.toString(), "reportError.data");
+        toast.success((reportError.data as { message: unknown })?.message?.toString() || "An error occurred.");
       } else {
         toast.error("An error occurred.");
       }

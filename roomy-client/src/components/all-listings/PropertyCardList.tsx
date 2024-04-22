@@ -4,7 +4,8 @@ import { PropertyCard } from "./PropertyCard";
 import { useAppSelector } from "@/store/store";
 import { useEffect } from "react";
 import { FilterInitialState } from "@/store/slices/postFilter-slice";
- 
+import { useSearchParams } from "next/navigation";
+
 const PropertyCardSkeleton = () => (
   <div className="animate-pulse bg-gray-200 rounded-xl p-4">
     <div className="h-32 bg-gray-300 mb-4"></div>
@@ -13,8 +14,11 @@ const PropertyCardSkeleton = () => (
   </div>
 );
 const ErrorComponent = ({ message }: { message: string }) => <div className="text-red-500">{message}</div>;
- 
+
 export function PropertyCardList() {
+  const searchParams = useSearchParams();
+  const cityNameQuery = searchParams.get("city");
+  console.log(cityNameQuery, "cityNameQuery InitialState from PropertyCardList");
   const bedCount = useAppSelector((state) => state.postFilterSlice.bedCount);
   const bathCount = useAppSelector((state) => state.postFilterSlice.bathCount);
   const city = useAppSelector((state) => state.postFilterSlice.city);
@@ -24,7 +28,7 @@ export function PropertyCardList() {
   const filterDetails: FilterInitialState = {
     bedCount,
     bathCount,
-    city,
+    city: cityNameQuery || "",
     priceMax,
     priceMin,
     startDateRange,
@@ -33,18 +37,16 @@ export function PropertyCardList() {
     data: posts,
     isLoading: postsLoading,
     error: postsError,
+    refetch,
   } = useGetPostsQuery(filterDetails, {
     refetchOnMountOrArgChange: true,
   });
- 
+
   useEffect(() => {
-    console.log(bedCount, "bedCount from PropertyCardList");
-  }, [bedCount]);
- 
-  useEffect(() => {
-    console.log(posts, "posts");
-  }, [posts]);
- 
+    console.log(cityNameQuery, "UseEffect cityNameQuery from PropertyCardList");
+    // refetch();
+  }, [cityNameQuery]);
+
   if (postsLoading && !posts) {
     return (
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 md:p-6">
@@ -54,11 +56,11 @@ export function PropertyCardList() {
       </section>
     );
   }
- 
+
   if (postsError) {
     return <ErrorComponent message="Error fetching data. Please try again later." />;
   }
- 
+
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 md:p-6">
       {posts?.map((property) => (

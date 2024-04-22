@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -46,14 +46,16 @@ export default function NEWBasicInfo() {
           <div className="flex flex-col space-y-4">
             <div>
               <Label htmlFor="title">Title</Label>
-              <Input
-                style={{ border: "0.5px solid #ccc" }}
-                onChange={handleChange}
-                value={basicInfo.title}
-                id="title"
-                placeholder="New Title"
-                name="title"
-              />
+              <div>
+                <Input
+                  style={{ border: "0.5px solid #ccc" }}
+                  onChange={handleChange}
+                  value={basicInfo.title}
+                  id="title"
+                  placeholder="New Title"
+                  name="title"
+                />
+              </div>
             </div>
 
             <div>
@@ -67,7 +69,19 @@ export default function NEWBasicInfo() {
                 name="phoneNumber"
               />
             </div>
-            <AddressSearch></AddressSearch>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="addresssearch">Search Location</Label>
+                <div
+                  style={{
+                    width: "280px",
+                    marginLeft: "20px",
+                  }}
+                >
+                  <AddressSearch></AddressSearch>
+                </div>
+              </div>
+            </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="address">Street Address</Label>

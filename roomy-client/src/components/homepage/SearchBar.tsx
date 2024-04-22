@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
@@ -14,7 +14,6 @@ export const SearchBar = ({ setResults }: { setResults: any }) => {
     const response = await getAddress(value);
     const { data, error, isSuccess } = response;
     if (isSuccess) {
-      console.log("Transformed Results:", data);
       setResults(data);
     } else {
       console.error("Error fetching data:", error);
@@ -27,9 +26,14 @@ export const SearchBar = ({ setResults }: { setResults: any }) => {
   };
 
   return (
-    <div className="input-wrapper">
-      <FaSearch id="search-icon" />
-      <input placeholder="Address..." value={input} onChange={(e) => handleChange(e.target.value)} />
+    <div style={{}} className="input-wrapper">
+      <FaSearch color="#5c4cda" id="search-icon" />
+      <input
+        style={{}}
+        placeholder="Enter an address, city, or ZIP code"
+        value={input}
+        onChange={(e) => handleChange(e.target.value)}
+      />
     </div>
   );
 };

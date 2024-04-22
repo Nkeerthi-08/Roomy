@@ -1,6 +1,21 @@
-"use client"
+"use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { useDeletePostMutation } from "@/store/services/post-service";
+import toast, { Toaster } from "react-hot-toast";
 
 interface CardProps {
   key: string;
@@ -14,12 +29,17 @@ interface CardProps {
 }
 
 export function PropertyCard({ propertyId, title, description, price, imageSrc, isTag, isApproved }: CardProps) {
+  const [openModal, setOpenModal] = useState(true);
   return (
     <>
+      <Toaster></Toaster>
       <div className="relative group overflow-hidden rounded-lg shadow-lg">
-        <Link className="absolute inset-0 z-10" href={`/all-listings/${propertyId}`}>
-          <span className="sr-only">View property</span>
-        </Link>
+        {(isTag != "true" && (
+          <Link className="absolute inset-0 z-10" href={`/all-listings/${propertyId}`}>
+            <span className="sr-only">View property</span>
+          </Link>
+        )) || <div></div>}
+
         <img
           alt="Property 2"
           className="object-cover w-full h-60"
@@ -38,7 +58,50 @@ export function PropertyCard({ propertyId, title, description, price, imageSrc, 
             <p className="text-sm text-gray-500 dark:text-gray-400">{description}</p>
             <p className="text-sm text-gray-500 dark:text-gray-400">{price}</p>
           </div>
-          {isTag == "true" && (
+          {isTag == "true" && <>{popUpConfirmation(isApproved, propertyId)}</>}
+        </div>
+      </div>
+    </>
+  );
+}
+function popUpConfirmation(isApproved: boolean | undefined, propertyId: string | undefined) {
+  const [
+    deletePost,
+    {
+      data: deleteData,
+      error: deleteError,
+      isLoading: deleteLoading,
+      isError: isDeleteError,
+      isSuccess: isDeleteSuccess,
+    },
+  ] = useDeletePostMutation();
+  function handleDelete() {
+    deletePost(propertyId!);
+  }
+
+  useEffect(() => {
+    if (isDeleteError) {
+      toast.error("Error deleting post");
+    }
+    if (deleteData || isDeleteSuccess) {
+      toast.success("Post deleted successfully");
+    }
+  }, [isDeleteError, deleteData]);
+
+  function handleEdit() {
+    throw new Error("Function not implemented.");
+  }
+
+  return (
+    <>
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button
+            style={{
+              backgroundColor: "white",
+              marginLeft: "148px",
+            }}
+          >
             <span
               className={`${
                 isApproved ? "bg-green-500" : "bg-red-500"
@@ -46,9 +109,31 @@ export function PropertyCard({ propertyId, title, description, price, imageSrc, 
             >
               {isApproved ? "Approved" : "Pending"}
             </span>
-          )}
-        </div>
-      </div>
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              You will be able to edit or delete this post. Deleting post can be undone and you'll have to recreate
+              it.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={handleDelete}>
+              {deleteLoading ? "Deleting..." : "Delete"}
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleEdit}
+              style={{
+                backgroundColor: "#5c4cda",
+              }}
+            >
+              Edit
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }

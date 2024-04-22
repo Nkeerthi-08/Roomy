@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { use, useEffect, useState } from "react";
 import { SearchResult } from "./SearchResult";
@@ -18,7 +18,12 @@ export const SearchResultsList = ({ results }: { results: Address[] }) => {
   return (
     <div className="relative">
       <div
-        className={`results-list w-50 bg-white z-50 overflow-y-auto border border-gray-300 rounded-md shadow-md p-4 absolute top-full left-0 ${
+        style={{
+          borderWidth: "2px",
+          marginTop: "10px",
+          borderRadius: "10px",
+        }}
+        className={`results-list w-50 bg-white z-50 overflow-y-auto border rounded-md shadow-md p-0 absolute top-full left-0 ${
           showResults ? "" : "hidden"
         }`}
       >
