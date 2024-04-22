@@ -4,12 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import ReactDOM from "react-dom";
 import { useSelector } from "react-redux";
-import { selectTomTomData } from "@/store/services/post-service";
+import { postApi } from "@/store/services/post-service";
 import { PropertyCard } from "./PropertyCard";
 import { Skeleton } from "../ui/skeleton";
-
+import { createSelector } from "@reduxjs/toolkit";
+import { TomTomDetailsPopup } from "@/store/services/address-service";
+import { useAppSelector } from "@/store/store";
+ 
 mapboxgl.accessToken = "pk.eyJ1IjoianV0dHUiLCJhIjoiY2x2NHhlbG5wMGNzNjJqcDV6cThhZmVnaCJ9.xAOGHa9cDK16JwlUkMmmdA";
-
+ 
 const MarkerComponent = ({ id }: { id: string }) => (
   <div
     style={{
@@ -26,16 +29,31 @@ const MarkerComponent = ({ id }: { id: string }) => (
     {`$${id}`}
   </div>
 );
-
+ 
 export default function TomTomMap() {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const [lng, setLng] = useState(-70.9);
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(9);
-
+ 
+  const filterDetails = useAppSelector((state) => state.postFilterSlice);
+  const dataNew = postApi.endpoints.getPosts.select(filterDetails);
+  const selectTomTomData = createSelector(dataNew, (postsResult) => {
+    const { data, ...rest } = postsResult;
+    const extractedData = data?.map((post) => ({
+      key: post._id,
+      title: post.title,
+      description: `${post.bedCount || 0} bedrooms, ${post.bathCount || 0} baths`,
+      price: post.price?.toString() || "0",
+      imageSrc: post.photos[0]?.url || "/next.svg",
+      latitute: post.latitude || 0,
+      longitude: post.longitude || 0,
+    })) as TomTomDetailsPopup[];
+    return { ...rest, data: extractedData };
+  });
   const addressData = useSelector(selectTomTomData);
-
+ 
   useEffect(() => {
     if (!mapContainer.current) return;
     map.current = new mapboxgl.Map({
@@ -49,7 +67,7 @@ export default function TomTomMap() {
         const markerEl = document.createElement("div");
         markerEl.className = "marker";
         ReactDOM.render(<MarkerComponent id={marker.price} />, markerEl);
-
+ 
         const popupEl = document.createElement("div");
         ReactDOM.render(
           <div style={{ width: "200px", height: "100px" }}>
@@ -64,19 +82,19 @@ export default function TomTomMap() {
           </div>,
           popupEl
         );
-
+ 
         new mapboxgl.Marker(markerEl, { offset: [0, -20] })
           .setLngLat([marker.longitude, marker.latitute])
           .setPopup(new mapboxgl.Popup().setDOMContent(popupEl))
           .addTo(map.current!);
       });
-
+ 
       map.current.flyTo({
-        center: [addressData.data[10].longitude, addressData.data[10].latitute],
-        zoom: 5,
+        center: [addressData.data[0].longitude, addressData.data[0].latitute],
+        zoom: 12,
         essential: true,
       });
-
+ 
       return () => {
         if (map.current) {
           map.current.remove();
@@ -84,7 +102,7 @@ export default function TomTomMap() {
       };
     }
   }, [lng, lat, zoom, addressData]);
-
+ 
   if (addressData.isLoading)
     return (
       <div className="flex items-center space-x-4">
