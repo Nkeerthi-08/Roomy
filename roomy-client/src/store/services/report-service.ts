@@ -5,7 +5,7 @@ export interface CreateReportRequest {
   postId: string;
 }
 const AUTH_TOKEN =
-  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MjFhZWNmYmQ2YWZjNTU4ZGQyNjM2YyIsImVtYWlsIjoidGVzdHVzZXJuZXdAZ21haWwuY29tIiwiaWF0IjoxNzEzNDgzNDk0LCJleHAiOjE3MTYwNzU0OTR9.EYvoWnGm0Tn7GzUcQ7AZduXm39huLgw1Xt18ShH14Ls";
+  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDlmOWI1NTRkYzJlNTNhY2JlNWYyOCIsImVtYWlsIjoiaHV6YWlmYW1hbGlrNDdAZ21haWwuY29tIiwiaWF0IjoxNzEzNzYxMDk0LCJleHAiOjE3MTYzNTMwOTR9.jxfbFf4WN96asJRv-jpuileIePiWsSq47Y0UKlFgpGE";
 
 export const reportApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({

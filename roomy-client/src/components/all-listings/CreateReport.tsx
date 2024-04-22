@@ -38,7 +38,9 @@ export function CreateReport(props: CreateReportProps) {
 
   useEffect(() => {
     if (isReportError) {
-      toast.success("You have already reported this post!");
+      console.log(reportError.data.message, "reportError");
+      toast.error(reportError?.data.message);
+      // toast.success("You have already reported this post!");
     }
     if (isReportSuccess) {
       toast.success("Successfully Reported!");
