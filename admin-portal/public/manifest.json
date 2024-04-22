@@ -4,7 +4,7 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "roomy-admin",
+    "name": "Roomy Admin",
     "short_name": "room-admin",
     "icons": [
         {
