@@ -13,18 +13,25 @@ const PropertyCardSkeleton = () => (
     <div className="h-6 bg-gray-300 w-3/4"></div>
   </div>
 );
-const ErrorComponent = ({ message }: { message: string }) => <div className="text-red-500">{message}</div>;
+const ErrorComponent = ({ message }: { message: string }) => (
+  <div className="text-red-500 text-center">{message}</div>
+);
 
 export function PropertyCardList() {
   const searchParams = useSearchParams();
   const cityNameQuery = searchParams.get("city");
-  console.log(cityNameQuery, "cityNameQuery InitialState from PropertyCardList");
+  console.log(
+    cityNameQuery,
+    "cityNameQuery InitialState from PropertyCardList"
+  );
   const bedCount = useAppSelector((state) => state.postFilterSlice.bedCount);
   const bathCount = useAppSelector((state) => state.postFilterSlice.bathCount);
   const city = useAppSelector((state) => state.postFilterSlice.city);
   const priceMax = useAppSelector((state) => state.postFilterSlice.priceMax);
   const priceMin = useAppSelector((state) => state.postFilterSlice.priceMin);
-  const startDateRange = useAppSelector((state) => state.postFilterSlice.startDateRange);
+  const startDateRange = useAppSelector(
+    (state) => state.postFilterSlice.startDateRange
+  );
   const filterDetails: FilterInitialState = {
     bedCount,
     bathCount,
@@ -58,7 +65,13 @@ export function PropertyCardList() {
   }
 
   if (postsError) {
-    return <ErrorComponent message="Error fetching data. Please try again later." />;
+    return (
+      <ErrorComponent message="Error fetching data. Please try again later." />
+    );
+  }
+
+  if (!posts || posts?.length === 0) {
+    return <ErrorComponent message="No properties found for this search." />;
   }
 
   return (
@@ -68,7 +81,9 @@ export function PropertyCardList() {
           key={property._id}
           propertyId={property._id}
           title={property.title}
-          description={`${property.bedCount || 0} bedrooms, ${property.bathCount || 0} baths`}
+          description={`${property.bedCount || 0} bedrooms, ${
+            property.bathCount || 0
+          } baths`}
           price={`$${property.price || 0} per month`}
           imageSrc={property.photos[0]?.url || "/next.svg"}
         />
