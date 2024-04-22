@@ -30,7 +30,7 @@ export default function NEWConformationForm() {
       dispatch(resetSlice());
       setTimeout(() => {
         router.push("/");
-      }, 3000);
+      }, 2000);
     }
   }, [isPostError, postLoading]);
 

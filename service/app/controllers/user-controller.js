@@ -65,7 +65,6 @@ export const deleteUser = async (req, res) => {
 export const getUserContext = async (req, res) => {
   try {
     const user = req.user;
-    await new Promise((resolve) => setTimeout(resolve, 5000));
     setResponse(res, user);
   } catch (error) {
     setResponseWithError(res, error);
