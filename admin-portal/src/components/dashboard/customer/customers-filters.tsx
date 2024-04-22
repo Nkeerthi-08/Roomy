@@ -8,7 +8,11 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { Stack } from '@mui/system';
 import { MagnifyingGlass as MagnifyingGlassIcon } from '@phosphor-icons/react/dist/ssr/MagnifyingGlass';
 
-export function CustomersFilters({ searchCustomers }): React.JSX.Element {
+export function CustomersFilters({
+  searchCustomers,
+}: {
+  searchCustomers: (params: { searchQuery: string; searchCriteria: string }) => void;
+}): React.ReactElement {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [searchCriteria, setSearchCriteria] = React.useState('name');
 
