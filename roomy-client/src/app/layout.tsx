@@ -48,7 +48,7 @@ export default function RootLayout({
         <header className="flex items-center justify-between h-16 px-4 md:px-6 border-b bg-white dark:bg-gray-950">
           <Link className="flex items-center gap-2" href="/homepage">
             <MountainIcon className="h-6 w-6" />
-            <span className="text-lg font-semibold">Acme Inc</span>
+            <span className="text-lg font-semibold">Roomy</span>
           </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
