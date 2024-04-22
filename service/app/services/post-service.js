@@ -56,6 +56,7 @@ export const getAllPosts = async (query = {}) => {
   // get all associated users and sort by latest first
   const posts = await Post.find(query)
     .populate('user', 'name email')
+    .populate('approvedBy', 'firstName lastName email', 'AdminUser')
     .sort({ createdAt: -1 });
   //
 
