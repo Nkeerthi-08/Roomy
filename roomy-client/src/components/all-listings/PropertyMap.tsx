@@ -4,7 +4,8 @@ import { useEffect, useRef } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import ReactDOM from "react-dom";
 
-mapboxgl.accessToken = "pk.eyJ1IjoianV0dHUiLCJhIjoiY2x2NHhlbG5wMGNzNjJqcDV6cThhZmVnaCJ9.xAOGHa9cDK16JwlUkMmmdA";
+mapboxgl.accessToken =
+  "pk.eyJ1IjoianV0dHUiLCJhIjoiY2x2NHhlbG5wMGNzNjJqcDV6cThhZmVnaCJ9.xAOGHa9cDK16JwlUkMmmdA";
 
 const MarkerComponent = ({ price }: { price: number }) => (
   <div
@@ -29,7 +30,11 @@ export interface PropertyMapProps {
   price: number;
 }
 
-export default function PropertyMap({ mapsInfo }: { mapsInfo: PropertyMapProps }) {
+export default function PropertyMap({
+  mapsInfo,
+}: {
+  mapsInfo: PropertyMapProps;
+}) {
   const mapContainerRef = useRef(null);
   console.log(mapsInfo, "mapsInfo");
 
@@ -58,7 +63,10 @@ export default function PropertyMap({ mapsInfo }: { mapsInfo: PropertyMapProps }
           <CardTitle>Map Location</CardTitle>
         </CardHeader>
         <CardContent>
-          <div ref={mapContainerRef} className="w-full h-96 rounded-lg overflow-hidden" />
+          <div
+            ref={mapContainerRef}
+            className="w-full h-96 rounded-lg overflow-hidden"
+          />
         </CardContent>
       </Card>
     </section>

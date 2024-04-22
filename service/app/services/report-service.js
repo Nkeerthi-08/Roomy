@@ -83,7 +83,13 @@ export const getAllReports = async (query = {}) => {
     const res = await Report.find(query)
       .populate([
         { path: 'user', select: 'name email', model: 'User' },
-        { path: 'post' },
+
+        // get associated User details of the post
+        {
+          path: 'post',
+          model: 'Post',
+          populate: { path: 'user', select: 'name email' },
+        },
         { path: 'handledBy', select: 'name email', model: 'AdminUser' },
       ])
       .sort({ createdAt: -1 });

@@ -1,3 +1,5 @@
+import { AdminUser } from './admin-user';
+
 export interface Post {
   _id: string;
   title: string;
@@ -26,6 +28,6 @@ export interface Post {
   longitude: number;
   phoneNumber: string;
   approvedAt: string;
-  approvedBy: string;
+  approvedBy: AdminUser;
   __v: number;
 }
