@@ -4,7 +4,7 @@ import { ReduxProvider } from "./StoreProvider";
 import "../styles/globals.css";
 import { cn } from "@/utils/cn";
 import { Ubuntu } from "next/font/google";
-import LogoutComponent from "@/components/testpage/Logout";
+
 import Link from "next/link";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import {
@@ -52,7 +52,6 @@ export default function RootLayout({
               </Link>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <LogoutComponent></LogoutComponent>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
