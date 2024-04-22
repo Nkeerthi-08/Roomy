@@ -10,46 +10,59 @@ export default function Component() {
   return (
     <div className="relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-28">
-        <div className="grid grid-cols-2 gap-8">
-          <div className="text-center py-16 md:py-24">
-            <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">Rooms for Rent</h1>
-            <p className="mt-4 text-xl text-gray-500">Find and rent your perfect room</p>
-            <div className="mt-8 flex justify-center">
-              <div className="w-full max-w-md">
-                <Select>
-                  <SelectTrigger
-                    aria-label="Search for an address, neighborhood, city or ZIP code"
-                    className="w-full relative"
-                    id="address"
-                  >
-                    <SelectValue placeholder="Enter an address, neighborhood, city or ZIP code" />
-                    <ChevronDownIcon className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="address1">123 Fake St, Springfield</SelectItem>
-                    <SelectItem value="address2">456 Elm St, Shelbyville</SelectItem>
-                    <SelectItem value="address3">789 Oak St, Capital City</SelectItem>
-                  </SelectContent>
-                </Select>
+        <div className="grid grid-cols-12 gap-8">
+          {/* Column layout for small devices */}
+          <div className="col-span-12 md:col-span-6">
+            <div className="text-center py-16 md:py-24">
+              <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">Rooms for Rent</h1>
+              <p className="mt-4 text-xl text-gray-500">Find and rent your perfect room</p>
+              <div className="mt-8 flex justify-center">
+                <div className="w-full max-w-md">
+                  <Select>
+                    <SelectTrigger
+                      aria-label="Search for an address, neighborhood, city or ZIP code"
+                      className="w-full relative"
+                      id="address"
+                    >
+                      <SelectValue placeholder="Enter an address, neighborhood, city or ZIP code" />
+                      <ChevronDownIcon className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="address1">123 Fake St, Springfield</SelectItem>
+                      <SelectItem value="address2">456 Elm St, Shelbyville</SelectItem>
+                      <SelectItem value="address3">789 Oak St, Capital City</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </div>
           </div>
-          <img
-            src="https://cdn-assets.roomster.com/dist/65a6ebfefa0cf4b3afe8346a5d4d8fac.svg"
-            alt="Placeholder"
-            className="w-full h-auto"
-            style={{ maxWidth: "100%", height: "auto", maxHeight: "350px" }}
-          />
+          {/* Column layout for medium and large devices */}
+          <div className="hidden md:block md:col-span-6">
+            <img
+              src="https://cdn-assets.roomster.com/dist/65a6ebfefa0cf4b3afe8346a5d4d8fac.svg"
+              alt="Placeholder"
+              className="w-full h-auto"
+              style={{ maxWidth: "100%", height: "auto", maxHeight: "350px" }}
+            />
+          </div>
         </div>
+        {/* Full-width image for small devices */}
+        <img
+          src="https://cdn-assets.roomster.com/dist/65a6ebfefa0cf4b3afe8346a5d4d8fac.svg"
+          alt="Placeholder"
+          className="block md:hidden w-full h-auto"
+          style={{ maxWidth: "100%", height: "auto" }}
+        />
       </div>
-      <div className="grid grid-cols-2 gap-8 px-4 sm:px-6 lg:px-8 pb-16 md:pb-24 mt-40">
-        <Card>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 sm:px-6 lg:px-8 pb-16 md:pb-24 mt-40">
+        <Card className="md:col-span-1">
           <CardContent
             style={{
               backgroundImage: `url('https://cdn-assets.roomster.com/dist/c83dfbcd25508573fb5efac548702beb.png')`,
               backgroundRepeat: "no-repeat center 49% / 100% !important",
               height: "300px",
-              width: "550px",
+              width: "100%",
               borderTopLeftRadius: "0px",
               borderTopRightRadius: "100px",
               borderBottomRightRadius: "0px",
@@ -78,13 +91,13 @@ export default function Component() {
             </Link>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="md:col-span-1">
           <CardContent
             style={{
               backgroundImage: `url('https://cdn-assets.roomster.com/dist/3bc37a2da21ca15523d031141ed4535b.png')`,
               backgroundRepeat: "no-repeat center 49% / 100% !important",
               height: "300px",
-              width: "550px",
+              width: "100%",
               borderTopLeftRadius: "10px",
               borderTopRightRadius: "0px",
               borderBottomRightRadius: "100px",
@@ -116,8 +129,6 @@ export default function Component() {
       </div>
       <Subscribe></Subscribe>
     </div>
-
-    // adding subscribe section
   );
 }
 
