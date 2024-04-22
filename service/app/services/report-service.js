@@ -111,8 +111,13 @@ export const getReportById = async (id) => {
   return res;
 };
 
-export const deleteReport = async (id) => {
-  const res = await Report.deleteOne({ _id: id });
+export const deleteReports = async (ids = []) => {
+  // if only one ID is passed, convert it to an array
+  if (!Array.isArray(ids)) {
+    ids = [ids];
+  }
+
+  const res = await Report.deleteMany({ _id: { $in: ids } });
 
   if (!res) {
     throw new Error('Report not deleted');
