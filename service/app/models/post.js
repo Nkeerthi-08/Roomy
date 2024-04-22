@@ -24,6 +24,7 @@ const PostSchema = new Schema({
   price: { type: Number, required: false },
   bedCount: { type: Number, required: false },
   bathCount: { type: Number, required: false },
+  numberOfSpots: { type: Number, required: false },
   photos: { type: [String], required: false },
   nearbyPlaces: { type: String, required: false },
   homeType: { type: String, required: false },
