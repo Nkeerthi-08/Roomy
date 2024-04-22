@@ -37,10 +37,12 @@ export function CreateReport(props: CreateReportProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (isReportError) {
-      console.log(reportError.data.message, "reportError");
-      toast.error(reportError?.data.message);
-      // toast.success("You have already reported this post!");
+    if (reportError) {
+      if ("data" in reportError && reportError.data && typeof reportError.data === "object") {
+        toast.error((reportError.data as { message: unknown })?.message?.toString() || "An error occurred.");
+      } else {
+        toast.error("An error occurred.");
+      }
     }
     if (isReportSuccess) {
       toast.success("Successfully Reported!");

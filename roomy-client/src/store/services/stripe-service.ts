@@ -1,12 +1,12 @@
+import { AUTH_TOKEN_USER } from "@/test";
 import { apiSlice } from "../baseApiSlice";
- 
-const AUTH_TOKEN =
-  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MWIzMTVmM2NjZjE4MjAxMzNkYzM2ZSIsImVtYWlsIjoianV0dHVhbnVyYWdAZ21haWwuY29tIiwiaWF0IjoxNzEzNjk3OTIzLCJleHAiOjE3MTYyODk5MjN9.BktoPuuAmo6CocCb1Ip5YiPArxoQHpmMbFef5hGiacc";
- 
+
+const AUTH_TOKEN = AUTH_TOKEN_USER;
+
 interface SubscriptionStatus {
   active: boolean;
 }
- 
+
 const striptApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     createCheckoutSession: build.mutation<any, void>({
@@ -34,7 +34,7 @@ const striptApi = apiSlice.injectEndpoints({
     }),
   }),
 });
- 
+
 export const {
   useCreateCheckoutSessionMutation,
   useGetActiveSubscriptionQuery,

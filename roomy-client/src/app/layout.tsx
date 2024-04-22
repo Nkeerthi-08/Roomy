@@ -50,7 +50,9 @@ export default function RootLayout({
               <Link href={"/profile"}>
                 <DropdownMenuItem>My Account</DropdownMenuItem>
               </Link>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <Link href={"/my-listings"}>
+                <DropdownMenuItem> My Listings</DropdownMenuItem>
+              </Link>
               <DropdownMenuSeparator />
               <LogoutComponent></LogoutComponent>
             </DropdownMenuContent>

@@ -1,4 +1,7 @@
+import { AUTH_TOKEN_USER } from "@/test";
 import { apiSlice } from "../baseApiSlice";
+
+const AUTH_TOKEN = AUTH_TOKEN_USER;
 
 export interface User {
   _id: string;
@@ -10,9 +13,6 @@ export interface UpdateUserReq {
   name: string;
   phone: string;
 }
-
-const AUTH_TOKEN =
-  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MjFhZWNmYmQ2YWZjNTU4ZGQyNjM2YyIsImVtYWlsIjoidGVzdHVzZXJuZXdAZ21haWwuY29tIiwiaWF0IjoxNzEzNDgzNDk0LCJleHAiOjE3MTYwNzU0OTR9.EYvoWnGm0Tn7GzUcQ7AZduXm39huLgw1Xt18ShH14Ls";
 
 export const userApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
