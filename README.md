@@ -25,16 +25,6 @@ Project Overview -
 
 The Room Booking System is a web-based platform designed to facilitate the easy listing and booking of accommodations. Users can create listings for their available spaces, browse and contact postings, and process transactions securely. This application aims to streamline the process of finding short-term rentals for users by providing a user-friendly interface and a robust backend.
 
-Team Members -
-
-Huzaifa Malik - Huzaifa.ma@northeastern.edu
-
-Jishnu Jemunigani - jemunigani.j@northeastern.edu
-
-Keerthi Nethiguntla - nethiguntla.k@northeastern.edu
-
-Juttu Gajendra Anurag - gajendraanurag.j@northeastern.edu
-
 
 # Object Model
 
